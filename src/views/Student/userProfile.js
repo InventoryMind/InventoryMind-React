@@ -38,6 +38,18 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
+  
+  const requestOptions = {
+    method: 'GET',
+    // headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    // body: JSON.stringify({ email:email.username, password:email.password,userType:email.userType })
+  };
+  // console.log(requestOptions);
+  const data=fetch('http://localhost:8000/student/getUserDetails',requestOptions)
+     .then(response => response.json())
+    .then(data=>{return data});
+  console.log(data);
   return (
     <div>
       <GridContainer>
