@@ -39,14 +39,11 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
-  const [token,setToken]=useToken();
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify({ email:token.username,userType:token.userType })
-  };
-  var data=fetch("http://localhost:3000/user/getUserDetails",requestOptions)
+  // const [token,setToken]=useToken();
+  const data=fetch('http://localhost:8000/admin/getUserDetails',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>{return data});
+  console.log(data);
   return (
     <div>
       <GridContainer>

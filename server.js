@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 
 
-app.use(cors({credentials : true}));
+app.use(cors({origin:"http://localhost:8000",credentials : true}));
 // app.use(function(req, res, next) {
 //   req.header("Access-Control-Allow-Origin", "*");
 //   req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
