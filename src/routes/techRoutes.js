@@ -15,9 +15,10 @@ import TransferItems from "views/TechnicalOfficer/TransferItems";
 import InventoryItems from "views/TechnicalOfficer/InventoryItems";
 import GeneratedReports from "views/TechnicalOfficer/GeneratedReports";
 import NotificationsPage from "views/TechnicalOfficer/Notifications";
-
-import {DriveFileMove, Inventory,Report} from '@mui/icons-material';
-import { KeyboardReturn, ShopTwo,ReportProblem } from "@material-ui/icons";
+import AddEquipment from "views/TechnicalOfficer/AddEquipment";
+import {DriveFileMove, Inventory,Report,Add} from '@mui/icons-material';
+import { KeyboardReturn, ShopTwo,ReportProblem,CropFree} from "@material-ui/icons";
+import BarcodeGenerate from "views/TechnicalOfficer/GenerateBarcode"
 //import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 //import RTLPage from "views/RTLPage/RTLPage.js";
@@ -38,6 +39,22 @@ const dashboardRoutes = [
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: UserProfile,
+    layout: "/tech",
+  },
+  {
+    path: "/generateBarcode",
+    name: "Generate Barcode",
+    // rtlName: "قائمة الجدول",
+    icon: CropFree,
+    component: BarcodeGenerate,
+    layout: "/tech",
+  },
+  {
+    path: "/addEquipment",
+    name: "Add Equipment",
+    // rtlName: "قائمة الجدول",
+    icon: Add,
+    component: AddEquipment,
     layout: "/tech",
   },
   // {
