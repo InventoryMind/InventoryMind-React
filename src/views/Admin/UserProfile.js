@@ -40,10 +40,17 @@ const useStyles = makeStyles(styles);
 export default function UserProfile() {
   const classes = useStyles();
   // const [token,setToken]=useToken();
-  const data=fetch('http://localhost:8000/admin/getUserDetails',{credentials:'include'})
+  const data=async()=>{
+    let d=await fetch('http://localhost:8000/admin/getUserDetails',{credentials:'include'})
      .then(response => response.json())
-    .then(data=>{return data});
+    .then(data=>data.msg)
+    .catch(e=>console.log(e));
+    return d;
+  }
+
+  // const data= async()=>await getUserDetails();
   console.log(data);
+  
   return (
     <div>
       <GridContainer>
