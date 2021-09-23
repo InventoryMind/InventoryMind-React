@@ -31,7 +31,8 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
-
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { useState,useEffect } from "react";
 import useToken from "useToken";
 const useStyles = makeStyles((theme) => ({
@@ -87,6 +88,12 @@ const styles = {
 
 export default function TableList() {
   const [open,setOpen]=React.useState(false);
+  
+  const [building, setBuilding] = React.useState('');
+
+  const handleBuilding = (event) => {
+    setBuilding(event.target.value);
+  };
 
   const classes = useStyles();
   const onOpenModal = () => {
@@ -151,15 +158,39 @@ if (data){
       <div>
         <TextField id="standard-error" label="Lab ID" variant="standard"/>
         <TextField id="standard-error" label="Name" variant="standard"/>
-        <TextField id="standard-error" label="Building" variant="standard"/>
+
         <TextField id="standard-error" label="Floor" variant="standard"/>
+          
+          <div style={{padding:"10px 0px"}}>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 500 }}>
+        <InputLabel id="demo-simple-select-standard-label">Building</InputLabel>
+        <Select
+         style={{width: `${220}px`}} 
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={building}
+          onChange={handleBuilding}
+          label="hib"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+      </div>
       
       </div>
     </Box>
     {/* submit button inside modal need to be implemented */}
+   
+          <div style={{padding:"10px"}}>
         <Button variant="contained"  color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
         Submit
       </Button>
+      </div>
           </div>
       {/* <SimpleModal /> */}
     </div>
