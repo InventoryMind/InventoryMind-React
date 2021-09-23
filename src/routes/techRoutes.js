@@ -11,7 +11,7 @@ import DashboardPage from "views/TechnicalOfficer/Dashboard";
 import UserProfile from "views/TechnicalOfficer/UserProfile";
 import AddReport from "views/TechnicalOfficer/AddReport";
 import BorrowedItems from "views/TechnicalOfficer/BorrowedItems";
-import TransferItems from "views/TechnicalOfficer/TransferItems";
+//import TransferItems from "views/TechnicalOfficer/TransferItems";
 import InventoryItems from "views/TechnicalOfficer/InventoryItems";
 import GeneratedReports from "views/TechnicalOfficer/GeneratedReports";
 import NotificationsPage from "views/TechnicalOfficer/Notifications";
@@ -81,14 +81,14 @@ const dashboardRoutes = [
     component: AddReport,
     layout: "/tech",
   },
-  {
-    path: "/transferItems",
-    name: "TransferItems",
-    rtlName: "الرموز",
-    icon: DriveFileMove,
-    component: TransferItems,
-    layout: "/tech",
-  },
+  // {
+  //   path: "/transferItems",
+  //   name: "TransferItems",
+  //   rtlName: "الرموز",
+  //   icon: DriveFileMove,
+  //   component: TransferItems,
+  //   layout: "/tech",
+  // },
   {
     path: "/borrowItems",
     name: "Borrowed Items",
