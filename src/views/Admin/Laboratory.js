@@ -113,7 +113,7 @@ export default function TableList() {
 
   // const [token,setToken]=useToken();
 
-  const [token,setToken]=useToken();
+  // const [token,setToken]=useToken();
 
   const [data,setData]=useState();
   var rows=[];
@@ -219,12 +219,10 @@ if (data){
         </Select>
       </FormControl>
       </div>
-        </Select>
-      </FormControl>
+      
+    
       </div>
 
-      
-      </div>
     </Box>
     {/* submit button inside modal need to be implemented */}
 
@@ -243,9 +241,9 @@ if (data){
     </div>
   
           {/* <h2>Add Lecturer</h2> */}
-         
+         </div>
         </Modal>
-   
+
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
