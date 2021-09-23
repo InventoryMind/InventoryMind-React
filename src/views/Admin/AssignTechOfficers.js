@@ -30,6 +30,9 @@ import Select from '@mui/material/Select';
 
 
 
+
+
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'relative',
@@ -85,9 +88,13 @@ const styles = {
 
 export default function TableList() {
   const [open,setOpen]=React.useState(false);
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(Number(event.target.value) || '');
+  const [labID, setLabID] = React.useState('');
+  const[techID,setTechID]=React.useState('');
+  const handleLabChange = (event) => {
+    setLabID(event.target.value);
+  };
+  const handleTechChange = (event) => {
+    setTechID(event.target.value);
   };
   
   const handleClickOpen = () => {
@@ -128,55 +135,52 @@ export default function TableList() {
           
           </CardHeader>
           <CardBody>
-          <TextField
-              type="text"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="brand"
-              label="Brand"
-              name="brand"
-              autoComplete="brand"
-              autoFocus
-              required 
-              // values={values.email}
-            />
-                
-      <strong>
-        <Button onClick={handleClickOpen} color={"warning"}>Assign TechOfficer</Button>
-      <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle>TechOfficer</DialogTitle>
-        <DialogContent>
-          <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
-           
-            <FormControl sx={{ m: 5, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label">ID</InputLabel>
-              <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={age}
-                onChange={handleChange}
-                input={<OutlinedInput label="Age" />}
-              >
-              {/* menu items need to be fetched */}
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>445</MenuItem>
-                <MenuItem value={20}>5465</MenuItem>
-                <MenuItem value={30}>32546</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
-        </DialogActions>
-      </Dialog>
+         
+      <FormControl sx={{ m: 1, minWidth: 370 }} >
+        <InputLabel id="demo-simple-select-readonly-label">Lab ID</InputLabel>
+        <Select
+          labelId="demo-simple-select-readonly-label"
+          id="demo-simple-select-readonly"
+          value={labID}
+          label="Lab ID"
+          onChange={handleLabChange}
+         
+          
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+       
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 370 }} >
+        <InputLabel id="demo-simple-select-error-label">Tech ID</InputLabel>
+        <Select
+          labelId="demo-simple-select-error-label"
+          id="demo-simple-select-error"
+          value={techID}
+          label="Tech ID"
+          onChange={handleTechChange}
+         
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+       
+      </FormControl>
       
-      </strong>
+      
+        
+                
+      
+              
       <Button
             //   onSubmit={handleSubmit}
               type="submit"
