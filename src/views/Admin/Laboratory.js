@@ -32,7 +32,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
 
-
+import { useState,useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -100,7 +100,28 @@ export default function TableList() {
   const handleEdit=()=>{
     window.location.replace("/lecturer/lecturers/edit/1")
   }
- 
+  const [data,setData]=useState();
+  var rows=[];
+  useEffect(()=>{
+    fetch('http://localhost:8000/admin/viewLab',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.msg))
+    .catch(e=>console.log(e));
+  },[])
+if (data){
+  for (let i=0;i<data.length;i++){
+    rows[i]={
+    id:i,
+    ID:i+1,
+    LabID:data[i].lab_id,
+    Name:data[i].name,
+    Building:data[i].b_name,
+    Floor:data[i].floor
+    }
+  }
+}
+  
+  console.log(data);
 
   return (
     <div>
@@ -232,30 +253,31 @@ const columns = [
 ];
 
 // fetch()
-const rows = [
-  {
-    id: 1,
-    ID:1,
-    LabID:143,
-    Name:"CSE Lab",
-    Building:"Sumanadasa",
-    Floor:4,
-  },
-  {
-    id: 2,
-    ID:2,
-    LabID:143,
-    Name:"CSE Lab",
-    Building:"Sumanadasa",
-    Floor:4,
-  },
-  {
-    id: 3,
-    ID:3,
-    LabID:143,
-    Name:"CSE Lab",
-    Building:"Sumanadasa",
-    Floor:4,
-  },
-];
+
+// const rows = [
+//   {
+//     id: 1,
+//     ID:1,
+//     LabID:143,
+//     Name:"CSE Lab",
+//     Building:"Sumanadasa",
+//     Floor:4,
+//   },
+//   {
+//     id: 2,
+//     ID:2,
+//     LabID:143,
+//     Name:"CSE Lab",
+//     Building:"Sumanadasa",
+//     Floor:4,
+//   },
+//   {
+//     id: 3,
+//     ID:3,
+//     LabID:143,
+//     Name:"CSE Lab",
+//     Building:"Sumanadasa",
+//     Floor:4,
+//   },
+// ];
 

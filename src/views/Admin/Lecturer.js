@@ -31,7 +31,7 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
-
+import { useEffect,useState } from "react";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -101,7 +101,29 @@ export default function TableList() {
     window.location.replace("/lecturer/lecturers/edit/1")
   }
  
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch('http://localhost:8000/admin/viewUsers/lecturer',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.msg))
+    .catch(e=>console.log(e));
+  },[])
+  console.log(data)
 
+  var rows=[]
+if (data){
+  for (let i=0;i<data.length;i++){
+    rows[i]={
+    id:i,
+    ID:i+1,
+    LecturerID:data[i].user_id,
+    firstName:data[i].first_name,
+    lastName:data[i].last_name,
+    Email:data[i].email,
+    ContactNo:data[i].contact_no
+    }
+  }
+}
   return (
     <div>
     
@@ -129,8 +151,6 @@ export default function TableList() {
         <TextField id="standard-error" label="First Name" variant="standard"/>
         <TextField id="standard-error" label="Last Name" variant="standard"/>
         <TextField id="standard-error" label="Email" variant="standard"/>
-        <TextField id="standard-error" label="NIC" variant="standard"/>
-        <TextField id="standard-error" label="City" variant="standard"/>
         <TextField id="standard-error" label="Contact Number" variant="standard"/>
       
       </div>
@@ -195,7 +215,13 @@ const columns = [
         minWidth: 70,
       },
       {
-        field: 'Name',
+        field: 'firstName',
+        headerName: 'Name',
+         flex: 0.5,
+        minWidth: 100,
+      },
+      {
+        field: 'LastName',
         headerName: 'Name',
          flex: 0.5,
         minWidth: 100,
@@ -207,8 +233,8 @@ const columns = [
         minWidth: 150,
       },
       {
-        field: 'City',
-        headerName: 'City',
+        field: 'ContactNo',
+        headerName: 'ContactNo',
          flex: 0.5,
         minWidth: 100,
       },
@@ -234,30 +260,4 @@ const columns = [
   }
 ];
 // fetch()
-const rows = [
-  {
-    id: 1,
-    ID:1,
-    LecturerID:143,
-    Name:"john",
-    Email:"a@gmail.com",
-    City:"Nelliady",
-  },
-  {
-    id: 2,
-    ID:2,
-    LecturerID:143,
-    Name:"john",
-    Email:"a@gmail.com",
-    City:"Nelliady",
-  },
-  {
-    id: 3,
-    ID:3,
-    LecturerID:143,
-    Name:"john",
-    Email:"a@gmail.com",
-    City:"Nelliady",
-  },
-];
 
