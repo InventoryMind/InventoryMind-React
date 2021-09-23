@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
-
+import { useEffect,useState } from "react";
 import DescriptionIcon from "@material-ui/icons/Description";
 
 import GridItem from "components/Grid/GridItem.js";
@@ -28,6 +28,14 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const classes = useStyles();
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch('http://localhost:8000/admin/getDashboardDataM',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.msg))
+    .catch(e=>console.log(e));
+  },[])
+  console.log(data);
   return (
     <div>
       <GridContainer>

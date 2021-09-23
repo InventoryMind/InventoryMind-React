@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import useToken from "../../useToken";
 import loginImage from "../../assets/img/loginImg.jpg";
 import { ConstructionOutlined, WindowSharp } from '@mui/icons-material';
+import jwt_decode from 'jwt-decode';
+
 // import {useFormik} from "formik";
 // import * as Yup from "yup";
 
@@ -31,7 +33,6 @@ async function loginUser(email,password,userType) {
   return fetch('http://localhost:8000/auth/login',requestOptions)
      .then(response => response.json())
     .then(data=>{return data});
-  // return axios.post("httpL/localhost:8000/login",{ email:email.username, password:email.password,userType:email.userType }).then(response=>{return response.data});
  }
 
 
@@ -65,7 +66,7 @@ export default function Login() {
   const { token, setToken } = useToken();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
- 
+  const[isRegistered,setRegister]=useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -76,15 +77,12 @@ export default function Login() {
       password,
       userType
     });
-<<<<<<< Updated upstream
-    res.data.isLoggedin=true;
-    setToken(res.data);
-    
-=======
+
     // res.data.isLoggedin=true;
     setToken(res.token);
 
->>>>>>> Stashed changes
+    
+
     if(userType=="administrator"){
      window.location.replace("/admin/dashboard")
     
@@ -111,6 +109,14 @@ export default function Login() {
   const handleEdit=()=>{
     
   }
+   function handleRegister(){
+    console.log("there")
+    setRegister(true);
+  }
+  function handleNonRegister(){
+    console.log("thereis")
+    setRegister(false);
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -136,11 +142,11 @@ export default function Login() {
                 margin="normal"
                 required fullWidth
               >
-                <MenuItem value={"administrator"}>Admin</MenuItem>
-                <MenuItem value={"lecturer"}>Lecturer</MenuItem>
-                <MenuItem value={"technical_offcier"}>Technical Officer</MenuItem>
+                <MenuItem value={"admin"}onClick={handleNonRegister}>Admin</MenuItem>
+                <MenuItem value={"lecturer"}onClick={handleNonRegister}>Lecturer</MenuItem>
+                <MenuItem value={"tech"}onClick={handleNonRegister}>Technical Officer</MenuItem>
                 {/* newly added */}
-                <MenuItem value={"student"}>Student</MenuItem>
+                <MenuItem value={"student"} onClick={handleRegister}>Student</MenuItem>
               </Select>
             </FormControl>
             <TextField
@@ -188,15 +194,16 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/forgotPassword" variant="body2" onClick={()=>window.location.replace('/forgotPassword')}>
                 {/* forgot password need to be implemented */}
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
+                 {isRegistered && 
                   <Link href="/signup"onvariant="body2" onClick={()=>window.location.replace('/signup')}>
-                    {"Register"}
-                  </Link>
+                    { "Register"}
+                  </Link>}
                   {/* <button onClick={()=>{window.location.replace('/signup')}} >
                     Register
                   </button> */}

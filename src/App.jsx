@@ -9,7 +9,8 @@ import useToken from "./useToken";
 import Lecturer from "layouts/Lecturer.js";
 import Tech from "layouts/Tech";
 import Student from "layouts/Student";
-import Register from './views/Authentication/register'
+import Register from './views/Authentication/register';
+import forgotpassword from "./views/Authentication/forgotPassword"
 
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -44,6 +45,7 @@ export default function App() {
         {/* <Redirect from="/" to="/tech/dashboard" /> */}
         <Route path="/student" component={Student} />
         <Route path='/signup' component={Register} />
+        <Route path='/forgotPassword' component={forgotpassword} />
         <Route path='/' component={Login} />
 
       </Switch>

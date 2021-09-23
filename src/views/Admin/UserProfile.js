@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -39,11 +39,15 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
-  // const [token,setToken]=useToken();
-  const data=fetch('http://localhost:8000/admin/getUserDetails',{credentials:'include'})
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch('http://localhost:8000/admin/getUserDetails',{credentials:'include'})
      .then(response => response.json())
-    .then(data=>{return data});
+    .then(data=>setData(data.msg))
+    .catch(e=>console.log(e));
+  },[])
   console.log(data);
+  
   return (
     <div>
       <GridContainer>
@@ -61,6 +65,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="Username"
                     id="username"
+                    value={data!=null ? data.user_id : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -71,10 +76,11 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="Email address"
                     id="email_address"
+                    value={data!=null ? data.email : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
-                  />
+                  >data.user_id</CustomInput>
                 </GridItem>
               </GridContainer>
               <GridContainer>
@@ -83,6 +89,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="First Name"
                     id="first_name"
+                    value={data!=null ? data.first_name : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -93,6 +100,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="Last Name"
                     id="last_name"
+                    value={data!=null ? data.last_name : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -105,6 +113,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="Contact No"
                     id="contact_no"
+                    value={data!=null ? data.contact_no : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}

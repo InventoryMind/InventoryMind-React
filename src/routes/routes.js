@@ -25,12 +25,12 @@ import Student from "views/Admin/Student";
 import TechnicalOfficer from "views/Admin/TechnicalOfficer";
 import NotificationsPage from "views/Admin/Notifications";
 import AddType from "views/Admin/AddEquipmentType";
-import Barcode from "views/Admin/BarcodeDownload";
+
 // import Student from "views/Student/Student.js";
 // import TechnicalOfficer from "views/TechnicalOfficer/TechnicalOfficer.js";
 // import NotificationsPage from "views/Notifications/Notifications.js";
 import {Lock,Domain,GroupAdd,AccountCircle} from '@material-ui/icons';
-import {CropFree,Add} from '@mui/icons-material';
+import {Add} from '@mui/icons-material';
 //import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 //import RTLPage from "views/RTLPage/RTLPage.js";
@@ -100,14 +100,7 @@ const dashboardRoutes = [
     component: AddType,
     layout: "/admin",
   },
-  {
-    path: "/barcodeDownload",
-    name: "Barcode Download",
-    // rtlName: "قائمة الجدول",
-    icon: CropFree,
-    component: Barcode,
-    layout: "/admin",
-  },
+  
   // {
   //   path: "/passwordReset",
   //   name: "Password Reset",
@@ -146,3 +139,4 @@ const dashboardRoutes = [
 ];
 
 export default dashboardRoutes;
+

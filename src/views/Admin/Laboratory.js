@@ -31,9 +31,10 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
-
-
-
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { useState,useEffect } from "react";
+import useToken from "useToken";
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'relative',
@@ -87,6 +88,12 @@ const styles = {
 
 export default function TableList() {
   const [open,setOpen]=React.useState(false);
+  
+  const [building, setBuilding] = React.useState('');
+
+  const handleBuilding = (event) => {
+    setBuilding(event.target.value);
+  };
 
   const classes = useStyles();
   const onOpenModal = () => {
@@ -100,11 +107,14 @@ export default function TableList() {
   const handleEdit=()=>{
     window.location.replace("/lecturer/lecturers/edit/1")
   }
-<<<<<<< Updated upstream
+
  
 
-=======
+
   // const [token,setToken]=useToken();
+
+  const [token,setToken]=useToken();
+
   const [data,setData]=useState();
   var rows=[];
   useEffect(()=>{
@@ -113,10 +123,12 @@ export default function TableList() {
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
 
+
     fetch('http://localhost:8000/admin/getBuildings',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setBuildings(data.msg))
     .catch(e=>console.log(e));
+
   },[])
 if (data){
   for (let i=0;i<data.length;i++){
@@ -130,6 +142,7 @@ if (data){
     }
   }
 }
+
   const addLabHandler=async()=>{
     const requestOptions = {
       method: 'POST',
@@ -153,7 +166,6 @@ if (data){
   const [name,setName]=useState();
   const [floor,setFloor]=useState();
   
->>>>>>> Stashed changes
   return (
     <div>
     
@@ -179,16 +191,14 @@ if (data){
       
      {/* need to be validated */}
       <div>
-<<<<<<< Updated upstream
-        <TextField id="standard-error" label="Lab ID" variant="standard"/>
-        <TextField id="standard-error" label="Name" variant="standard"/>
-        <TextField id="standard-error" label="Building" variant="standard"/>
-        <TextField id="standard-error" label="Floor" variant="standard"/>
-=======
+
+
         <TextField id="standard-error" onChange={e=>setLabId(e.target.value)} label="Lab ID" variant="standard"/>
         <TextField id="standard-error" onChange={e=>setName(e.target.value)} label="Name" variant="standard"/>
 
         <TextField id="standard-error" onChange={e=>setFloor(e.target.value)} label="Floor" variant="standard"/>
+
+
           
           <div style={{padding:"10px 0px"}}>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 500 }}>
@@ -204,24 +214,30 @@ if (data){
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
+
           <MenuItem value={buildings==null ? 0 :buildings[0].b_id}>{buildings==null? "" :buildings[0].b_name}</MenuItem>
         </Select>
       </FormControl>
       </div>
->>>>>>> Stashed changes
+        </Select>
+      </FormControl>
+      </div>
+
       
       </div>
     </Box>
     {/* submit button inside modal need to be implemented */}
-<<<<<<< Updated upstream
-        <Button variant="contained"  color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
-=======
+
+   
+          <div style={{padding:"10px"}}>
+
    
           <div style={{padding:"10px"}}>
         <Button variant="contained"  color="light blue" onClick={addLabHandler} size="small" className={classes.button} startIcon={<SaveIcon />}>
->>>>>>> Stashed changes
+
         Submit
       </Button>
+      </div>
           </div>
       {/* <SimpleModal /> */}
     </div>
@@ -316,30 +332,31 @@ const columns = [
 ];
 
 // fetch()
-const rows = [
-  {
-    id: 1,
-    ID:1,
-    LabID:143,
-    Name:"CSE Lab",
-    Building:"Sumanadasa",
-    Floor:4,
-  },
-  {
-    id: 2,
-    ID:2,
-    LabID:143,
-    Name:"CSE Lab",
-    Building:"Sumanadasa",
-    Floor:4,
-  },
-  {
-    id: 3,
-    ID:3,
-    LabID:143,
-    Name:"CSE Lab",
-    Building:"Sumanadasa",
-    Floor:4,
-  },
-];
+
+// const rows = [
+//   {
+//     id: 1,
+//     ID:1,
+//     LabID:143,
+//     Name:"CSE Lab",
+//     Building:"Sumanadasa",
+//     Floor:4,
+//   },
+//   {
+//     id: 2,
+//     ID:2,
+//     LabID:143,
+//     Name:"CSE Lab",
+//     Building:"Sumanadasa",
+//     Floor:4,
+//   },
+//   {
+//     id: 3,
+//     ID:3,
+//     LabID:143,
+//     Name:"CSE Lab",
+//     Building:"Sumanadasa",
+//     Floor:4,
+//   },
+// ];
 

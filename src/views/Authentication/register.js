@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Avatar, Button, CssBaseline, TextField, Link, Paper, Grid, Typography, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+import { Avatar, Button, CssBaseline, TextField,  Paper, Grid, Typography, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import useStyles from './style';
 //added newly
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import useToken from "../../useToken";
 import loginImage from "../../assets/img/loginImg.jpg";
 import { WindowSharp } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   
@@ -25,9 +26,52 @@ export default function Login() {
             <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign up as a Student
           </Typography>
           <form className={classes.form} noValidate >
+          <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="ID"
+              label="Index No"
+              name="IndexNumber"
+              autoComplete="Indexnumber"
+              autoFocus
+              required 
+              // values={values.email}
+            />
+             <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="fname"
+              label="First Name"
+              name="fname"
+              autoComplete="fname"
+              autoFocus
+              required 
+              // values={values.email}
+            />
+             <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="lname"
+              label="Last Name"
+              name="lname"
+              autoComplete="lname"
+              autoFocus
+              required 
+              // values={values.email}
+            />
+
            
             <TextField
               type="text"
@@ -39,6 +83,62 @@ export default function Login() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              autoFocus
+              required 
+              // values={values.email}
+            />
+             <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="nic"
+              label="NIC Number"
+              name="NIC"
+              autoComplete="NIC"
+              autoFocus
+              required 
+              // values={values.email}
+            />
+             <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="fname"
+              label="First Name"
+              name="fname"
+              autoComplete="fname"
+              autoFocus
+              required 
+              // values={values.email}
+            />
+             <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="city"
+              label="City"
+              name="city"
+              autoComplete="city"
+              autoFocus
+              required 
+              // values={values.email}
+            />
+             <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="phnNo"
+              label="Contact No"
+              name="phnNo"
+              autoComplete="phnNo"
               autoFocus
               required 
               // values={values.email}
@@ -86,6 +186,19 @@ export default function Login() {
             >
               Sign up
             </Button>
+            <Link to="/" className="btn btn-primary" >
+            <Button
+            //   onSubmit={handleSubmit}
+              type="submit"
+              style={{minWidth:"20px"}}
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Back to Login
+            </Button>
+            {/* submit */}
+            </Link>
             
 
           </form>

@@ -29,8 +29,9 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
-
+import useToken from "useToken";
+import { useEffect,useState } from "react";
+import jwt_decode from 'jwt-decode';
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { People } from "@material-ui/icons";
@@ -42,12 +43,12 @@ date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(
 
 export default function Dashboard() {
   const classes = useStyles();
-<<<<<<< Updated upstream
-=======
+
   // const {token,setToken}=useToken();
   // var decoded=jwt_decode(token);
   // console.log(decoded);
->>>>>>> Stashed changes
+
+
   return (
     <div>
       <GridContainer>
