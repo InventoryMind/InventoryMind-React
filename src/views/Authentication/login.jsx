@@ -77,9 +77,12 @@ export default function Login() {
       password,
       userType
     });
+
     // res.data.isLoggedin=true;
     setToken(res.token);
+
     
+
     if(userType=="administrator"){
      window.location.replace("/admin/dashboard")
     

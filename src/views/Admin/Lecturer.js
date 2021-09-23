@@ -31,7 +31,10 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
+
 import { useEffect,useState } from "react";
+import { Refresh } from "@material-ui/icons";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -110,6 +113,7 @@ export default function TableList() {
   },[])
   console.log(data)
 
+
   var rows=[]
 if (data){
   for (let i=0;i<data.length;i++){
@@ -124,6 +128,31 @@ if (data){
     }
   }
 }
+
+async function addLecturerHandler(){
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ email:email,userType:"lecturer",firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo})
+  };
+  // console.log(requestOptions);
+  await fetch('http://localhost:8000/admin/addStaff',requestOptions)
+     .then(response => response.json())
+    .then(data=>{
+        onCloseModal();
+        alert(data.message);
+    }).catch(e=>setResponse("Failed"));
+}
+console.log(response);
+const[response,setResponse]=useState();
+const [userId,setUserId]=useState();
+const [firstName,setFirstName]=useState();
+const [lastName,setLastName]=useState();
+const [email,setEmail]=useState();
+const [contactNo,setContactNo]=useState();
+
+
   return (
     <div>
     
@@ -147,17 +176,19 @@ if (data){
       
      {/* need to be validated */}
       <div>
-        <TextField id="standard-error" label="User ID" variant="standard"/>
-        <TextField id="standard-error" label="First Name" variant="standard"/>
-        <TextField id="standard-error" label="Last Name" variant="standard"/>
-        <TextField id="standard-error" label="Email" variant="standard"/>
-        <TextField id="standard-error" label="Contact Number" variant="standard"/>
+
+        <TextField id="standard-error" onChange={e=>setUserId(e.target.value)} label="User ID" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setFirstName(e.target.value)} label="First Name" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setLastName(e.target.value)} label="Last Name" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setEmail(e.target.value)} label="Email" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setContactNo(e.target.value)} label="Contact Number" variant="standard"/>
+
       
       </div>
     </Box>
          
         {/* submit button to be implemnted */}
-        <Button variant="contained"  color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
+        <Button variant="contained"  color="light blue" size="small" onClick={addLecturerHandler} className={classes.button} startIcon={<SaveIcon />}>
         Submit
       </Button>
           </div>
@@ -215,14 +246,14 @@ const columns = [
         minWidth: 70,
       },
       {
-        field: 'firstName',
-        headerName: 'Name',
+         field: 'firstName',
+        headerName: 'First Name',
          flex: 0.5,
         minWidth: 100,
       },
       {
-        field: 'LastName',
-        headerName: 'Name',
+        field: 'lastName',
+        headerName: 'Last Name',
          flex: 0.5,
         minWidth: 100,
       },

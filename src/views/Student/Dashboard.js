@@ -43,9 +43,12 @@ date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(
 
 export default function Dashboard() {
   const classes = useStyles();
-  const {token,setToken}=useToken();
-  var decoded=jwt_decode(token);
-  console.log(decoded);
+
+  // const {token,setToken}=useToken();
+  // var decoded=jwt_decode(token);
+  // console.log(decoded);
+
+
   return (
     <div>
       <GridContainer>
