@@ -100,8 +100,60 @@ export default function TableList() {
   const handleEdit=()=>{
     window.location.replace("/lecturer/lecturers/edit/1")
   }
+<<<<<<< Updated upstream
  
 
+=======
+  // const [token,setToken]=useToken();
+  const [data,setData]=useState();
+  var rows=[];
+  useEffect(()=>{
+    fetch('http://localhost:8000/admin/viewLab',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.msg))
+    .catch(e=>console.log(e));
+
+    fetch('http://localhost:8000/admin/getBuildings',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setBuildings(data.msg))
+    .catch(e=>console.log(e));
+  },[])
+if (data){
+  for (let i=0;i<data.length;i++){
+    rows[i]={
+    id:i,
+    ID:i+1,
+    LabID:data[i].lab_id,
+    Name:data[i].name,
+    Building:data[i].b_name,
+    Floor:data[i].floor
+    }
+  }
+}
+  const addLabHandler=async()=>{
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({labId:labId,name:name,building:building,floor:floor})
+    };
+    // console.log(requestOptions);
+    await fetch('http://localhost:8000/admin/addLaboratory',requestOptions)
+       .then(response => response.json())
+      .then(data=>{
+        if (data.title=="Success"){
+          onCloseModal();
+        }
+  
+      }).catch(e=>setResponse("Failed"));
+  }
+  // console.log(data);
+  const [buildings,setBuildings]=useState();
+  const [labId,setLabId]=useState();
+  const [name,setName]=useState();
+  const [floor,setFloor]=useState();
+  
+>>>>>>> Stashed changes
   return (
     <div>
     
@@ -127,15 +179,47 @@ export default function TableList() {
       
      {/* need to be validated */}
       <div>
+<<<<<<< Updated upstream
         <TextField id="standard-error" label="Lab ID" variant="standard"/>
         <TextField id="standard-error" label="Name" variant="standard"/>
         <TextField id="standard-error" label="Building" variant="standard"/>
         <TextField id="standard-error" label="Floor" variant="standard"/>
+=======
+        <TextField id="standard-error" onChange={e=>setLabId(e.target.value)} label="Lab ID" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setName(e.target.value)} label="Name" variant="standard"/>
+
+        <TextField id="standard-error" onChange={e=>setFloor(e.target.value)} label="Floor" variant="standard"/>
+          
+          <div style={{padding:"10px 0px"}}>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 500 }}>
+        <InputLabel id="demo-simple-select-standard-label">Building</InputLabel>
+        <Select
+         style={{width: `${220}px`}} 
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={building}
+          onChange={handleBuilding}
+          label="hib"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={buildings==null ? 0 :buildings[0].b_id}>{buildings==null? "" :buildings[0].b_name}</MenuItem>
+        </Select>
+      </FormControl>
+      </div>
+>>>>>>> Stashed changes
       
       </div>
     </Box>
     {/* submit button inside modal need to be implemented */}
+<<<<<<< Updated upstream
         <Button variant="contained"  color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
+=======
+   
+          <div style={{padding:"10px"}}>
+        <Button variant="contained"  color="light blue" onClick={addLabHandler} size="small" className={classes.button} startIcon={<SaveIcon />}>
+>>>>>>> Stashed changes
         Submit
       </Button>
           </div>

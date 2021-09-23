@@ -102,6 +102,31 @@ export default function TableList() {
   }
  
 
+async function addLecturerHandler(){
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ email:email,userType:"student",firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo})
+  };
+  // console.log(requestOptions);
+  await fetch('http://localhost:8000/admin/addStaff',requestOptions)
+     .then(response => response.json())
+    .then(data=>{
+      if (data.title=="Success"){
+        onCloseModal();
+      }
+
+    }).catch(e=>setResponse("Failed"));
+}
+console.log(response);
+const[response,setResponse]=useState();
+const [userId,setUserId]=useState();
+const [firstName,setFirstName]=useState();
+const [lastName,setLastName]=useState();
+const [email,setEmail]=useState();
+const [contactNo,setContactNo]=useState();
+
   return (
     <div>
     
@@ -125,6 +150,7 @@ export default function TableList() {
       
      {/* need to be validated */}
       <div>
+<<<<<<< Updated upstream
         <TextField id="standard-error" label="User ID" variant="standard"/>
         <TextField id="standard-error" label="First Name" variant="standard"/>
         <TextField id="standard-error" label="Last Name" variant="standard"/>
@@ -132,6 +158,13 @@ export default function TableList() {
         <TextField id="standard-error" label="NIC" variant="standard"/>
         <TextField id="standard-error" label="City" variant="standard"/>
         <TextField id="standard-error" label="Contact Number" variant="standard"/>
+=======
+      <TextField id="standard-error" onChange={e=>setUserId(e.target.value)} label="User ID" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setFirstName(e.target.value)} label="First Name" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setLastName(e.target.value)} label="Last Name" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setEmail(e.target.value)} label="Email" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setContactNo(e.target.value)} label="Contact Number" variant="standard"/>
+>>>>>>> Stashed changes
       
       </div>
     </Box>

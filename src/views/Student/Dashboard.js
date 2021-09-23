@@ -42,6 +42,12 @@ date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(
 
 export default function Dashboard() {
   const classes = useStyles();
+<<<<<<< Updated upstream
+=======
+  // const {token,setToken}=useToken();
+  // var decoded=jwt_decode(token);
+  // console.log(decoded);
+>>>>>>> Stashed changes
   return (
     <div>
       <GridContainer>

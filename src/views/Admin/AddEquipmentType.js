@@ -27,24 +27,20 @@ export default function Login() {
         <div className={classes.paper}>
         <form className={classes.form} noValidate >
         
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">EquipmentType</InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={userType}
-                onChange={handleChange}
-                label="UserType"
-                margin="normal"
-                required fullWidth
-              >
-                <MenuItem value={"admin"}>Admin</MenuItem>
-                <MenuItem value={"lecturer"}>Lecturer</MenuItem>
-                <MenuItem value={"tech"}>Technical Officer</MenuItem>
-                {/* newly added */}
-                <MenuItem value={"student"}>Student</MenuItem>
-              </Select>
-            </FormControl>
+        <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="type"
+              label="Type"
+              name="type"
+              autoComplete="type"
+              autoFocus
+              required 
+              // values={values.email}
+            />
             <TextField
               type="text"
               variant="outlined"

@@ -76,9 +76,15 @@ export default function Login() {
       password,
       userType
     });
+<<<<<<< Updated upstream
     res.data.isLoggedin=true;
     setToken(res.data);
     
+=======
+    // res.data.isLoggedin=true;
+    setToken(res.token);
+
+>>>>>>> Stashed changes
     if(userType=="administrator"){
      window.location.replace("/admin/dashboard")
     

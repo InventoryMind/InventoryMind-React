@@ -101,7 +101,58 @@ export default function TableList() {
     window.location.replace("/lecturer/lecturers/edit/1")
   }
  
+<<<<<<< Updated upstream
 
+=======
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch('http://localhost:8000/admin/viewAssignedTO',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.data))
+    .catch(e=>console.log(e));
+  },[])
+  // console.log(data)
+
+  var rows=[]
+if (data){
+  for (let i=0;i<data.length;i++){
+    rows[i]={
+    id:i,
+    ID:i+1,
+    TechOfficerID:data[i].user_id,
+    firstName:data[i].first_name,
+    lastName:data[i].last_name,
+    Email:data[i].email,
+    LabName:data[i].name,
+    ContactNo:data[i].contact_no
+    }
+  }
+}
+
+async function addTOHandler(){
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ email:email,userType:"technical_officer",firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo})
+  };
+  // console.log(requestOptions);
+  await fetch('http://localhost:8000/admin/addStaff',requestOptions)
+     .then(response => response.json())
+    .then(data=>{
+        onCloseModal();
+        alert(data.message);
+    }).catch(e=>setResponse("Failed"));
+}
+console.log(response);
+const[response,setResponse]=useState();
+const [userId,setUserId]=useState();
+const [firstName,setFirstName]=useState();
+const [lastName,setLastName]=useState();
+const [email,setEmail]=useState();
+const [contactNo,setContactNo]=useState();
+
+>>>>>>> Stashed changes
   return (
     <div>
     
@@ -125,6 +176,7 @@ export default function TableList() {
       
      {/* need to be validated */}
       <div>
+<<<<<<< Updated upstream
         <TextField id="standard-error" label="User ID" variant="standard"/>
         <TextField id="standard-error" label="First Name" variant="standard"/>
         <TextField id="standard-error" label="Last Name" variant="standard"/>
@@ -132,12 +184,19 @@ export default function TableList() {
         <TextField id="standard-error" label="NIC" variant="standard"/>
         <TextField id="standard-error" label="City" variant="standard"/>
         <TextField id="standard-error" label="Contact Number" variant="standard"/>
+=======
+      <TextField id="standard-error" onChange={e=>setUserId(e.target.value)} label="User ID" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setFirstName(e.target.value)} label="First Name" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setLastName(e.target.value)} label="Last Name" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setEmail(e.target.value)} label="Email" variant="standard"/>
+        <TextField id="standard-error" onChange={e=>setContactNo(e.target.value)} label="Contact Number" variant="standard"/>
+>>>>>>> Stashed changes
       
       </div>
     </Box>
          
         {/* submit button inside the modal need to be implemnted */}
-        <Button variant="contained"  color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
+        <Button variant="contained"  onClick={addTOHandler} color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
         Submit
       </Button>
           </div>
