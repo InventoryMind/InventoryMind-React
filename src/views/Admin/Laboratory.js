@@ -184,7 +184,7 @@ if (data){
       </div>
     </Box>
     {/* submit button inside modal need to be implemented */}
-    //newly added
+   
           <div style={{padding:"10px"}}>
         <Button variant="contained"  color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
         Submit
