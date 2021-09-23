@@ -183,7 +183,7 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/forgotPassword" variant="body2" onClick={()=>window.location.replace('/forgotPassword')}>
                 {/* forgot password need to be implemented */}
                   Forgot password?
                 </Link>
