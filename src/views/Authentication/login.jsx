@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import useToken from "../../useToken";
 import loginImage from "../../assets/img/loginImg.jpg";
 import { ConstructionOutlined, WindowSharp } from '@mui/icons-material';
+import jwt_decode from 'jwt-decode';
+
 // import {useFormik} from "formik";
 // import * as Yup from "yup";
 
@@ -31,7 +33,6 @@ async function loginUser(email,password,userType) {
   return fetch('http://localhost:8000/auth/login',requestOptions)
      .then(response => response.json())
     .then(data=>{return data});
-  // return axios.post("httpL/localhost:8000/login",{ email:email.username, password:email.password,userType:email.userType }).then(response=>{return response.data});
  }
 
 
@@ -76,8 +77,8 @@ export default function Login() {
       password,
       userType
     });
-    res.data.isLoggedin=true;
-    setToken(res.data);
+    // res.data.isLoggedin=true;
+    setToken(res.token);
     
     if(userType=="administrator"){
      window.location.replace("/admin/dashboard")

@@ -33,7 +33,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
 
 import { useState,useEffect } from "react";
-
+import useToken from "useToken";
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'relative',
@@ -100,6 +100,7 @@ export default function TableList() {
   const handleEdit=()=>{
     window.location.replace("/lecturer/lecturers/edit/1")
   }
+  const [token,setToken]=useToken();
   const [data,setData]=useState();
   var rows=[];
   useEffect(()=>{
@@ -122,7 +123,7 @@ if (data){
 }
   
   console.log(data);
-
+  
   return (
     <div>
     

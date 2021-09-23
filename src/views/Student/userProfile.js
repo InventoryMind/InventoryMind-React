@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import { useState,useEffect } from "react";
 import avatar from "assets/img/faces/marc.jpg";
 
 const styles = {
@@ -38,17 +38,14 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
-  
-  const requestOptions = {
-    method: 'GET',
-    // headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    // body: JSON.stringify({ email:email.username, password:email.password,userType:email.userType })
-  };
-  // console.log(requestOptions);
-  const data=fetch('http://localhost:8000/student/getUserDetails',requestOptions)
+
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch('http://localhost:8000/student/getUserDetails',{credentials:'include'})
      .then(response => response.json())
-    .then(data=>{return data});
+    .then(data=>setData(data.msg.data))
+    .catch(e=>console.log(e));
+  },[])
   console.log(data);
   return (
     <div>
@@ -67,6 +64,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="Username"
                     id="username"
+                    value={data==null ? "" : data.user_id}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -77,6 +75,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="Email address"
                     id="email-address"
+                    value={data==null ? "" :data.email}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -89,6 +88,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="First Name"
                     id="first-name"
+                    value={data==null ? "" :data.first_name}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -99,6 +99,7 @@ export default function UserProfile() {
                   <CustomInput
                     labelText="Last Name"
                     id="last-name"
+                    value={data==null ? "" :data.last_name}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -109,33 +110,16 @@ export default function UserProfile() {
                 <GridItem xs={12} sm={12} md={4}>
                  {/* fetch() */}
                   <CustomInput
-                    labelText="City"
-                    id="city"
+                    labelText="Contact No"
+                    id="contactNo"
+                    value={data==null ? "" :data.contact_no}
                     formControlProps={{
                       fullWidth: true,
                     }}
                   />
                 </GridItem>
                  {/* fetch() */}
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
-                    id="country"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                 {/* fetch() */}
-                  <CustomInput
-                    labelText="Postal Code"
-                    id="postal-code"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
+    
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
