@@ -66,7 +66,7 @@ export default function Login() {
   const { token, setToken } = useToken();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
- 
+  const[isRegistered,setRegister]=useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -106,6 +106,14 @@ export default function Login() {
   const handleEdit=()=>{
     
   }
+   function handleRegister(){
+    console.log("there")
+    setRegister(true);
+  }
+  function handleNonRegister(){
+    console.log("thereis")
+    setRegister(false);
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -131,11 +139,11 @@ export default function Login() {
                 margin="normal"
                 required fullWidth
               >
-                <MenuItem value={"administrator"}>Admin</MenuItem>
-                <MenuItem value={"lecturer"}>Lecturer</MenuItem>
-                <MenuItem value={"technical_offcier"}>Technical Officer</MenuItem>
+                <MenuItem value={"admin"}onClick={handleNonRegister}>Admin</MenuItem>
+                <MenuItem value={"lecturer"}onClick={handleNonRegister}>Lecturer</MenuItem>
+                <MenuItem value={"tech"}onClick={handleNonRegister}>Technical Officer</MenuItem>
                 {/* newly added */}
-                <MenuItem value={"student"}>Student</MenuItem>
+                <MenuItem value={"student"} onClick={handleRegister}>Student</MenuItem>
               </Select>
             </FormControl>
             <TextField
@@ -189,9 +197,10 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
+                 {isRegistered && 
                   <Link href="/signup"onvariant="body2" onClick={()=>window.location.replace('/signup')}>
-                    {"Register"}
-                  </Link>
+                    { "Register"}
+                  </Link>}
                   {/* <button onClick={()=>{window.location.replace('/signup')}} >
                     Register
                   </button> */}
