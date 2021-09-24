@@ -56,14 +56,16 @@ export default function Lecturer({ ...rest }) {
 
   
     if(!token) {
-      // return <Redirect to="/login" />        
-        return <Login setToken={setToken} />
+      return <Redirect to="/login" />        
+        // return <Login setToken={setToken} />
       }
       else{
         const payload=jwt_decode(token);
         let userType=payload.userType;
         if (userType!="student"){
           alert("You are not authorized");
+          if(userType=="administrator")userType="admin";
+          if(userType=="technical_officer")userType="tech";
           return <Redirect to={"/"+userType} />        
           // return <Login setToken={setToken} />
         }

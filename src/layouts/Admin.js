@@ -74,6 +74,7 @@ export default function Admin({ ...rest }) {
       let userType=payload.userType;
       if (userType!="administrator"){
         alert("You are not authorized");
+        if(userType=="technical_officer")userType="tech";
         return <Redirect to={"/"+userType} />        
         // return <Login setToken={setToken} />
       }
