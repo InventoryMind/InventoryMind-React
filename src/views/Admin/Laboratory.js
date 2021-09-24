@@ -118,13 +118,13 @@ export default function TableList() {
   const [data,setData]=useState();
   var rows=[];
   useEffect(()=>{
-    fetch('http://localhost:8000/admin/viewLab',{credentials:'include'})
+    fetch(process.env.REACT_APP_API+'/admin/viewLab',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
 
 
-    fetch('http://localhost:8000/admin/getBuildings',{credentials:'include'})
+    fetch(process.env.REACT_APP_API+'/admin/getBuildings',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setBuildings(data.msg))
     .catch(e=>console.log(e));
@@ -151,7 +151,7 @@ if (data){
       body: JSON.stringify({labId:labId,name:name,building:building,floor:floor})
     };
     // console.log(requestOptions);
-    await fetch('http://localhost:8000/admin/addLaboratory',requestOptions)
+    await fetch(process.env.REACT_APP_API+'/admin/addLaboratory',requestOptions)
        .then(response => response.json())
       .then(data=>{
         if (data.title=="Success"){

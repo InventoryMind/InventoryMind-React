@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import { useState, useEffect } from "react";
 import avatar from "assets/img/faces/marc.jpg";
 
 const styles = {
@@ -38,6 +38,14 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/techOff/getUserDetails',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.msg.data))
+    .catch(e=>console.log(e));
+  },[])
+  console.log(data);
   return (
     <div>
       <GridContainer>
@@ -49,12 +57,12 @@ export default function UserProfile() {
             </CardHeader>
             <CardBody>
               <GridContainer>
-               
-                <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={6}>
                  {/* fetch() */}
                   <CustomInput
                     labelText="Username"
                     id="username"
+                    value={data!=null ? data.user_id : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -64,11 +72,12 @@ export default function UserProfile() {
                  {/* fetch() */}
                   <CustomInput
                     labelText="Email address"
-                    id="email-address"
+                    id="email_address"
+                    value={data!=null ? data.email : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
-                  />
+                  ></CustomInput>
                 </GridItem>
               </GridContainer>
               <GridContainer>
@@ -76,7 +85,8 @@ export default function UserProfile() {
                 {/* fetch() */}
                   <CustomInput
                     labelText="First Name"
-                    id="first-name"
+                    id="first_name"
+                    value={data!=null ? data.first_name : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -86,7 +96,8 @@ export default function UserProfile() {
                 {/* fetch() */}
                   <CustomInput
                     labelText="Last Name"
-                    id="last-name"
+                    id="last_name"
+                    value={data!=null ? data.last_name : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
@@ -97,34 +108,20 @@ export default function UserProfile() {
                 <GridItem xs={12} sm={12} md={4}>
                  {/* fetch() */}
                   <CustomInput
-                    labelText="City"
-                    id="city"
+                    labelText="Contact No"
+                    id="contact_no"
+                    value={data!=null ? data.contact_no : "Loading"}
                     formControlProps={{
                       fullWidth: true,
                     }}
                   />
                 </GridItem>
-                 {/* fetch() */}
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
-                    id="country"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                 {/* fetch() */}
-                  <CustomInput
-                    labelText="Postal Code"
-                    id="postal-code"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
+               
+                
+             
+               
               </GridContainer>
+             
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                   {/* <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel> */}
