@@ -11,7 +11,7 @@ import Tech from "layouts/Tech";
 import Student from "layouts/Student";
 import Register from './views/Authentication/register';
 import forgotpassword from "./views/Authentication/forgotPassword"
-
+import Ottp from "./views/Authentication/ottp"
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
 // }
@@ -46,6 +46,7 @@ export default function App() {
         <Route path="/student" component={Student} />
         <Route path='/signup' component={Register} />
         <Route path='/forgotPassword' component={forgotpassword} />
+        <Route path='/ottp' component={Ottp} />
         <Route path='/' component={Login} />
 
       </Switch>

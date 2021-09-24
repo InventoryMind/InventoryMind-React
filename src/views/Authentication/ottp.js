@@ -8,32 +8,19 @@ import useToken from "../../useToken";
 import loginImage from "../../assets/img/loginImg.jpg";
 import { WindowSharp } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-
-
-
-
-
-async function loginUser(credentials) {
-  return fetch(process.env.REACT_APP_API+'/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json())
- }
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 
 
 export default function Login() {
- 
+  
 
   const classes = useStyles();
- 
-  
+  const [userType, setUserType] = React.useState('');
+  const { token, setToken } = useToken();
   const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [ottp, setOttp] = useState();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -60,7 +47,7 @@ export default function Login() {
             <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Forgot Password
+            Verification
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
            
@@ -79,10 +66,28 @@ export default function Login() {
               // values={values.email}
             />
             {/* {errors.email? errors.email:null} */}
+            <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="ottp"
+              label="OTTP"
+              name="ottp"
+              autoComplete="ottp"
+              autoFocus
+              required onChange={e => setOttp(e.target.value)}
+              inputProps={{ maxLength: 6 }}
+              
+              // values={values.email}
+            />
 
-           
+            <Stack sx={{ width: '100%' }} spacing={2}>
+                <Alert severity="info">No of characters must be 6</Alert>
+                </Stack>
 
-            <Link to="/ottp" className="btn btn-primary">
+          
             <Button
               onSubmit={handleSubmit}
               type="submit"
@@ -91,9 +96,9 @@ export default function Login() {
               color="secondary"
               className={classes.submit}
             >
-              Reset Password
+              Verify
             </Button>
-            </Link>
+           
             <Link to="/" className="btn btn-primary" >
             <Button
             //   onSubmit={handleSubmit}
@@ -118,3 +123,7 @@ export default function Login() {
   );
 }
 
+//added newly
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
+}
