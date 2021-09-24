@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
 
 //uncommented newly
 async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
+  return fetch(process.env.REACT_APP_API+'/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

@@ -30,7 +30,7 @@ async function loginUser(email,password,userType) {
     body: JSON.stringify({ email:email.username, password:email.password,userType:email.userType })
   };
   // console.log(requestOptions);
-  return fetch('http://localhost:8000/auth/login',requestOptions)
+  return fetch(process.env.REACT_APP_API+'/auth/login',requestOptions)
      .then(response => response.json())
     .then(data=>{return data});
  }

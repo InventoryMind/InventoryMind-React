@@ -41,7 +41,7 @@ export default function UserProfile() {
   const classes = useStyles();
   const [data,setData]=useState();
   useEffect(()=>{
-    fetch('http://localhost:8000/admin/getUserDetails',{credentials:'include'})
+    fetch(process.env.REACT_APP_API+'/admin/getUserDetails',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));

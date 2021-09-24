@@ -104,7 +104,7 @@ export default function TableList() {
 
   const [data,setData]=useState();
   useEffect(()=>{
-    fetch('http://localhost:8000/admin/viewAssignedTO',{credentials:'include'})
+    fetch(process.env.REACT_APP_API+'/admin/viewAssignedTO',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.data))
     .catch(e=>console.log(e));
@@ -136,7 +136,7 @@ async function addTOHandler(){
     body: JSON.stringify({ email:email,userType:"technical_officer",firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo})
   };
   // console.log(requestOptions);
-  await fetch('http://localhost:8000/admin/addStaff',requestOptions)
+  await fetch(process.env.REACT_APP_API+'/admin/addStaff',requestOptions)
      .then(response => response.json())
     .then(data=>{
         onCloseModal();

@@ -28,7 +28,7 @@ export default function Login() {
       body: JSON.stringify({type:type,brand:brand})
     };
     // console.log(requestOptions);
-    await fetch('http://localhost:8000/admin/addEquipType',requestOptions)
+    await fetch(process.env.REACT_APP_API+'/admin/addEquipType',requestOptions)
        .then(response => response.json())
       .then(data=>{
         if (data.title=="Success"){

@@ -47,9 +47,12 @@ export default function AdminNavbarLinks() {
       setOpenProfile(event.currentTarget);
     }
   };
-  const handleCloseProfile =async () => {
+  const handleCloseProfile = () => {
+    setOpenProfile(null);
+  };
+  const handleLogOut =async () => {
     setToken("");
-    await fetch("http://localhost:8000/auth/logout",{credentials:'include'});
+    await fetch(process.env.REACT_APP_API+"/auth/logout",{credentials:'include'});
     window.location.replace("/");
   };
   return (
@@ -121,7 +124,7 @@ export default function AdminNavbarLinks() {
               }}
             >
               <Paper>
-                <ClickAwayListener onClick={handleCloseNotification}>
+                <ClickAwayListener onClickAway={handleCloseNotification}>
                   <MenuList role="menu">
                   {/* fetch() */}
                     <MenuItem
@@ -180,7 +183,7 @@ export default function AdminNavbarLinks() {
               }}
             >
               <Paper>
-                <ClickAwayListener >
+                <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
                     {/* <MenuItem
                       onClick={handleCloseProfile}
@@ -196,7 +199,7 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light /> */}
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={handleLogOut}
                       className={classes.dropdownItem}
                     >
                       Logout

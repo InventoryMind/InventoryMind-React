@@ -106,7 +106,7 @@ export default function TableList() {
  
   const [data,setData]=useState();
   useEffect(()=>{
-    fetch('http://localhost:8000/admin/viewUsers/lecturer',{credentials:'include'})
+    fetch(process.env.REACT_APP_API+'/admin/viewUsers/lecturer',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
@@ -137,7 +137,7 @@ async function addLecturerHandler(){
     body: JSON.stringify({ email:email,userType:"lecturer",firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo})
   };
   // console.log(requestOptions);
-  await fetch('http://localhost:8000/admin/addStaff',requestOptions)
+  await fetch(process.env.REACT_APP_API+'/admin/addStaff',requestOptions)
      .then(response => response.json())
     .then(data=>{
         onCloseModal();

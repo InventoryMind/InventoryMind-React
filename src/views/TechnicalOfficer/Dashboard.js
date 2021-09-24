@@ -19,7 +19,7 @@ import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
-
+import { useState,useEffect } from "react";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { People } from "@material-ui/icons";
@@ -31,6 +31,14 @@ date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(
 
 export default function Dashboard() {
   const classes = useStyles();
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/techOff/getDashboardDataM',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.msg))
+    .catch(e=>console.log(e));
+  },[])
+  console.log(data)
   return (
     <div>
       <GridContainer>
@@ -43,7 +51,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Equipments</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}> 49</h3>  
+              <h3 className={classes.cardTitle}> {data==null ? "Loading..." : data[0].count}</h3>  
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -59,14 +67,14 @@ export default function Dashboard() {
               <CardIcon color="success">
                 <People />
               </CardIcon>
-              <p className={classes.cardCategory}>Usable Equipements</p>
+              <p className={classes.cardCategory}>Requested Equipments</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}>245</h3>
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." :data[1].count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DescriptionIcon />
-                Total number of Usable equipments
+                Total number of Requested Equipments
               </div>
             </CardFooter>
           </Card>
@@ -77,14 +85,14 @@ export default function Dashboard() {
               <CardIcon color="danger">
                 {/* <Icon>info_outline</Icon> */} <People />
               </CardIcon>
-              <p className={classes.cardCategory}>Broken Equipments</p>
+              <p className={classes.cardCategory}>Temporary Borrowed</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}>75</h3>
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." :data[2].count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DescriptionIcon />
-                Total number of broken equipments
+                Total number of temporary borrowed equipments
               </div>
             </CardFooter>
           </Card>
@@ -95,14 +103,32 @@ export default function Dashboard() {
               <CardIcon color="info">
                 <People />
               </CardIcon>
-              <p className={classes.cardCategory}>Non-usable Equipments</p>
+              <p className={classes.cardCategory}>Borrowed Equipments</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}>245</h3>
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." :data[3].count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DescriptionIcon />
-                Total number of non-usable equipments
+                Total number of borrowed equipments
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <People />
+              </CardIcon>
+              <p className={classes.cardCategory}>Not Usable Equipments</p>
+              {/* fetch() */}
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." :data[4].count}</h3>
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                <DescriptionIcon />
+                Total number of not usable equipments
               </div>
             </CardFooter>
           </Card>

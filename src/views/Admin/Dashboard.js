@@ -30,7 +30,7 @@ export default function Dashboard() {
   const classes = useStyles();
   const [data,setData]=useState();
   useEffect(()=>{
-    fetch('http://localhost:8000/admin/getDashboardDataM',{credentials:'include'})
+    fetch(process.env.REACT_APP_API+'/admin/getDashboardDataM',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
