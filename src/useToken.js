@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 export default function useToken() {
   const getToken = () => {
-    const tokenString = sessionStorage.getItem('token');
+    const tokenString = localStorage.getItem('token');
+    // const tokenString = document.cookie;
     const userToken = JSON.parse(tokenString);
     return userToken
   };
@@ -10,7 +11,8 @@ export default function useToken() {
   const [token, setToken] = useState(getToken());
 
   const saveToken = userToken => {
-    sessionStorage.setItem('token', JSON.stringify(userToken));
+    localStorage.setItem('token', JSON.stringify(userToken));
+    // document.cookie= JSON.stringify(userToken);
     setToken(userToken);
   };
 

@@ -14,7 +14,7 @@ import useToken from "../useToken";
 import routes from "../routes/techRoutes";
 import Login from "../views/Authentication/login";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
-
+import jwt_decode from 'jwt-decode';
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
@@ -45,8 +45,19 @@ const useStyles = makeStyles(styles);
 export default function Tech({ ...rest }) {
   const { token, setToken } = useToken();
 
+ 
   if(!token) {
+    // return <Redirect to="/login" />        
       return <Login setToken={setToken} />
+    }
+    else{
+      const payload=jwt_decode(token);
+      let userType=payload.userType;
+      if (userType!="technical_officer"){
+        alert("You are not authorized");
+        return <Redirect to={"/"+userType} />        
+        // return <Login setToken={setToken} />
+      }
     }
   // styles
   const classes = useStyles();
@@ -126,14 +137,14 @@ export default function Tech({ ...rest }) {
           <div className={classes.map}>{switchRoutes}</div>
         )}
         {getRoute() ? <Footer /> : null}
-        <FixedPlugin
+        {/* <FixedPlugin
           handleImageClick={handleImageClick}
           handleColorClick={handleColorClick}
           bgColor={color}
           bgImage={image}
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
-        />
+        /> */}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -13,7 +13,7 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import useToken from "../useToken";
 import routes from "../routes/routes";
 import Login from "../views/Authentication/login";
-
+import jwt_decode from 'jwt-decode';
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
@@ -33,24 +33,24 @@ const switchRoutes = (
           />
         );
       }
-      if (prop.layout === "/lecturer") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-      if (prop.layout === "/tech") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
+      // if (prop.layout === "/lecturer") {
+      //   return (
+      //     <Route
+      //       path={prop.layout + prop.path}
+      //       component={prop.component}
+      //       key={key}
+      //     />
+      //   );
+      // }
+      // if (prop.layout === "/tech") {
+      //   return (
+      //     <Route
+      //       path={prop.layout + prop.path}
+      //       component={prop.component}
+      //       key={key}
+      //     />
+      //   );
+      // }
       return null;
     })}
     <Redirect from="/admin" to="/admin/dashboard" />
@@ -64,9 +64,21 @@ export default function Admin({ ...rest }) {
 
   const { token, setToken } = useToken();
   // setToken(true);
-  if(!token) {
-      return <Login setToken={setToken} />
+  
+    if(!token) {
+    return <Redirect to="/login" />        
+      // return <Login setToken={setToken} />
     }
+    else{
+      const payload=jwt_decode(token);
+      let userType=payload.userType;
+      if (userType!="administrator"){
+        alert("You are not authorized");
+        return <Redirect to={"/"+userType} />        
+        // return <Login setToken={setToken} />
+      }
+    }
+
   // styles
   const classes = useStyles();
   // ref to help us initialize PerfectScrollbar on windows devices
