@@ -76,9 +76,14 @@ export default function Login() {
       username,
       password,
       userType
-    });
+    }).catch(e=>console.log(e));
 
-    // res.data.isLoggedin=true;
+    if (res.status!=200){
+      console.log(res.status)
+      alert(res.message)
+    }
+  
+    else{
     setToken(res.token);
 
     
@@ -100,6 +105,7 @@ export default function Login() {
      
     }
   }
+  }
 
   const handleChange = (event) => {
     setUserType(event.target.value);
@@ -116,6 +122,23 @@ export default function Login() {
   function handleNonRegister(){
     console.log("thereis")
     setRegister(false);
+  }
+
+  if (token){
+    const payload=jwt_decode(token);
+    setUserType(payload.userType);
+    if(userType=="administrator"){
+      window.location.replace("/admin/dashboard")
+     }
+     if(userType=="lecturer"){
+       window.location.replace("/lecturer/dashboard")
+     }
+     if(userType=="technical_officer"){
+       window.location.replace("/tech/dashboard")
+     }
+     if(userType=="student"){
+       window.location.replace("/student/dashboard")
+     }
   }
 
   return (
@@ -142,9 +165,9 @@ export default function Login() {
                 margin="normal"
                 required fullWidth
               >
-                <MenuItem value={"admin"}onClick={handleNonRegister}>Admin</MenuItem>
+                <MenuItem value={"administrator"}onClick={handleNonRegister}>Admin</MenuItem>
                 <MenuItem value={"lecturer"}onClick={handleNonRegister}>Lecturer</MenuItem>
-                <MenuItem value={"tech"}onClick={handleNonRegister}>Technical Officer</MenuItem>
+                <MenuItem value={"technical_officer"}onClick={handleNonRegister}>Technical Officer</MenuItem>
                 {/* newly added */}
                 <MenuItem value={"student"} onClick={handleRegister}>Student</MenuItem>
               </Select>
@@ -181,7 +204,7 @@ export default function Login() {
             />
              {/* {errors.password? errors.password:null} */}
 
-
+            
             <Button
               onSubmit={handleSubmit}
               type="submit"

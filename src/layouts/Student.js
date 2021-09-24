@@ -14,6 +14,7 @@ import useToken from "../useToken";
 import routes from "../routes/studentRoutes";
 import Login from "../views/Authentication/login";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
+import jwt_decode from 'jwt-decode';
 
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
@@ -53,9 +54,20 @@ const useStyles = makeStyles(styles);
 export default function Lecturer({ ...rest }) {
     const { token, setToken } = useToken();
 
-  if(!token) {
-      return <Login setToken={setToken} />
-    }
+  
+    if(!token) {
+      // return <Redirect to="/login" />        
+        return <Login setToken={setToken} />
+      }
+      else{
+        const payload=jwt_decode(token);
+        let userType=payload.userType;
+        if (userType!="student"){
+          alert("You are not authorized");
+          return <Redirect to={"/"+userType} />        
+          // return <Login setToken={setToken} />
+        }
+      }
   // styles
   const classes = useStyles();
   // ref to help us initialize PerfectScrollbar on windows devices

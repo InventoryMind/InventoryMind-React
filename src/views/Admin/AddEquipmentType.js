@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import useToken from "../../useToken";
 import loginImage from "../../assets/img/loginImg.jpg";
 import { WindowSharp } from '@mui/icons-material';
+import SaveIcon from '@material-ui/icons/Save';
 
 export default function Login() {
   
@@ -18,6 +19,28 @@ export default function Login() {
     console.log(userType)
   };
 
+  const addEquipTypeHandler=async()=>{
+    // e.preventDefault();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({type:type,brand:brand})
+    };
+    // console.log(requestOptions);
+    await fetch('http://localhost:8000/admin/addEquipType',requestOptions)
+       .then(response => response.json())
+      .then(data=>{
+        if (data.title=="Success"){
+          onCloseModal();
+        }
+  
+      }).catch(e=>setResponse("Failed"));
+  }
+  // console.log(data);
+  const [response,setResponse]=useState();
+  const [type,setType]=useState();
+  const [brand,setBrand]=useState();
   
 
   return (
@@ -37,6 +60,7 @@ export default function Login() {
               id="type"
               label="Type"
               name="type"
+              onChange={e=>setType(e.target.value)}
               autoComplete="type"
               autoFocus
               required 
@@ -51,6 +75,7 @@ export default function Login() {
               id="brand"
               label="Brand"
               name="brand"
+              onChange={e=>setBrand(e.target.value)}
               autoComplete="brand"
               autoFocus
               required 
@@ -62,16 +87,9 @@ export default function Login() {
             
             
 
-            <Button
-            //   onSubmit={handleSubmit}
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Submit
-            </Button>
+           <Button variant="contained"  color="light blue" size="small" onClick={addEquipTypeHandler} className={classes.button} startIcon={<SaveIcon />}>
+        Submit
+      </Button>
             
 
           </form>

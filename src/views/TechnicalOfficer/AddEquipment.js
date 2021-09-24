@@ -18,8 +18,8 @@ import CardBody from "components/Card/CardBody.js";
 export default function Login() {
   const componentRef = React.useRef();
   const [showResults, setShowResults] = React.useState(false)
-  const onClicked = () => {
-    event.preventDefault()
+  const onClicked = (e) => {
+    e.preventDefault()
     setShowResults(true)
   }
   const classes = useStyles();

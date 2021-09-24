@@ -47,8 +47,9 @@ export default function AdminNavbarLinks() {
       setOpenProfile(event.currentTarget);
     }
   };
-  const handleCloseProfile = () => {
-    setToken("");
+  const handleCloseProfile =async () => {
+    // setToken("");
+    await fetch("http://localhost:8000/auth/logout",{credentials:'include'});
     window.location.replace("/");
   };
   return (
