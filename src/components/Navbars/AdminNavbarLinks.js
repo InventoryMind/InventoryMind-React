@@ -48,7 +48,7 @@ export default function AdminNavbarLinks() {
     }
   };
   const handleCloseProfile =async () => {
-    // setToken("");
+    setToken("");
     await fetch("http://localhost:8000/auth/logout",{credentials:'include'});
     window.location.replace("/");
   };
@@ -121,7 +121,7 @@ export default function AdminNavbarLinks() {
               }}
             >
               <Paper>
-                <ClickAwayListener onClickAway={handleCloseNotification}>
+                <ClickAwayListener onClick={handleCloseNotification}>
                   <MenuList role="menu">
                   {/* fetch() */}
                     <MenuItem
