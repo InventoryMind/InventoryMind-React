@@ -1,4 +1,3 @@
-import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -20,7 +19,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
+import { useState,useEffect } from "react";
+import { element } from "prop-types";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,12 +75,32 @@ const styles = {
 // const useStyles = makeStyles(styles);
 
 export default function TableList() {
-  const [open,setOpen]=React.useState(false);
+  const [open,setOpen]=useState(false);
 
   const classes = useStyles();
- 
- 
-
+ const [inventory,setInventory]=useState();
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/techOff/viewInventory',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setInventory(data.data))
+    .catch(e=>console.log(e));
+  },[])
+  var rows=[];
+  
+  if(inventory){
+    for (let i=0;i < inventory.length;i++) {
+    let element=inventory[i]
+    rows.push({
+      id:i+1,
+      equipmentId: element.eq_id,
+      equipmentName:element.name,
+      type:element.type,
+      brand:element.brand,
+      status:element.state,
+      condition:element.condition
+    })
+  };
+}
   return (
     <div>
   
@@ -115,27 +135,39 @@ export default function TableList() {
 const columns = [
     
     {
-        field: 'EquipmentID',
+        field: 'equipmentId',
         headerName: 'Equipment ID',
         flex: 0.5,
         minwidth:100,
         
       },
       {
-        field: 'Name',
+        field: 'equipmentName',
         headerName: 'Equipment Name',
          flex: 0.5,
         minWidth: 100,
       },
       {
-        field: 'LabID',
-        headerName: 'Lab ID',
+        field: 'type',
+        headerName: 'Type',
          flex: 0.5,
         minWidth: 100,
       },
       {
         field: 'brand',
         headerName: 'Brand',
+         flex: 0.5,
+        minWidth: 100,
+      },
+      {
+        field: 'status',
+        headerName: 'Status',
+         flex: 0.5,
+        minWidth: 100,
+      },
+      {
+        field: 'condition',
+        headerName: 'Condition',
          flex: 0.5,
         minWidth: 100,
       },
@@ -160,28 +192,5 @@ const columns = [
     ),
   }
 ];
- {/* fetch() */}
-const rows = [
-  {
-    id: 1,
-    EquipmentID:10,
-    Name:"laptop",
-    LabID:7,
-    brand:"Arpico"
-  },
-  {
-    id: 2,
-    EquipmentID:10,
-    Name:"laptop",
-    LabID:7,
-    brand:"Arpico"
-  },
-  {
-    id: 3,
-    EquipmentID:10,
-    Name:"laptop",
-    LabID:7,
-    brand:"Arpico"
-  },
-];
+
 
