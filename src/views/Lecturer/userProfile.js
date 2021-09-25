@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import {useState,useEffect} from 'react';
 import avatar from "assets/img/faces/marc.jpg";
 
 const styles = {
@@ -38,135 +38,113 @@ const useStyles = makeStyles(styles);
 
 export default function UserProfile() {
   const classes = useStyles();
+  const [data,setData]=useState();
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/lecturer/getUserDetails',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setData(data.msg.data))
+    .catch(e=>console.log(e));
+  },[])
+  console.log(data);
   return (
     <div>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
-          <Card>
-            <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Profile</h4>
-              <p className={classes.cardCategoryWhite}>User Details</p>
-            </CardHeader>
-            <CardBody>
-              <GridContainer>
-               
-                <GridItem xs={12} sm={12} md={6}>
-                 {/* fetch() */}
-                  <CustomInput
-                    labelText="Username"
-                    id="username"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                 {/* fetch() */}
-                  <CustomInput
-                    labelText="Email address"
-                    id="email-address"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                {/* fetch() */}
-                  <CustomInput
-                    labelText="First Name"
-                    id="first-name"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                {/* fetch() */}
-                  <CustomInput
-                    labelText="Last Name"
-                    id="last-name"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
-                 {/* fetch() */}
-                  <CustomInput
-                    labelText="City"
-                    id="city"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                 {/* fetch() */}
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
-                    id="country"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                 {/* fetch() */}
-                  <CustomInput
-                    labelText="Postal Code"
-                    id="postal-code"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  {/* <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel> */}
-                   {/* fetch() */}
-                  <CustomInput
-                    labelText="About me"
-                    id="about-me"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5,
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-            </CardBody>
-            <CardFooter>
-              <Button color="primary">Update Profile</Button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={avatar} alt="..." />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <p className={classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
-              </p>
+    <GridContainer>
+      <GridItem xs={12} sm={12} md={8}>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Profile</h4>
+            <p className={classes.cardCategoryWhite}>User Details</p>
+          </CardHeader>
+          <CardBody>
+            <GridContainer>
              
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
+              <GridItem xs={12} sm={12} md={6}>
+               {/* fetch() */}
+                <CustomInput
+                  labelText="Username"
+                  id="username"
+                  value={data!=null ? data.user_id : "Loading"}
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={6}>
+               {/* fetch() */}
+                <CustomInput
+                  labelText="Email address"
+                  id="email_address"
+                  value={data!=null ? data.email : "Loading"}
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                >data.user_id</CustomInput>
+              </GridItem>
+            </GridContainer>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={6}>
+              {/* fetch() */}
+                <CustomInput
+                  labelText="First Name"
+                  id="first_name"
+                  value={data!=null ? data.first_name : "Loading"}
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={6}>
+              {/* fetch() */}
+                <CustomInput
+                  labelText="Last Name"
+                  id="last_name"
+                  value={data!=null ? data.last_name : "Loading"}
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                />
+              </GridItem>
+            </GridContainer>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={4}>
+               {/* fetch() */}
+                <CustomInput
+                  labelText="Contact No"
+                  id="contact_no"
+                  value={data!=null ? data.contact_no : "Loading"}
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                />
+              </GridItem>
+             
+            </GridContainer>
+           
+          </CardBody>
+          <CardFooter>
+            <Button color="primary">Update Profile</Button>
+          </CardFooter>
+        </Card>
+      </GridItem>
+      <GridItem xs={12} sm={12} md={4}>
+        <Card profile>
+          <CardAvatar profile>
+            <a href="#pablo" onClick={(e) => e.preventDefault()}>
+              <img src={avatar} alt="..." />
+            </a>
+          </CardAvatar>
+          <CardBody profile>
+            <h4 className={classes.cardTitle}>Alec Thompson</h4>
+            <p className={classes.description}>
+              Don{"'"}t be scared of the truth because we need to restart the
+              human foundation in truth And I love you like Kanye loves Kanye
+              I love Rick Owens’ bed design but the back is...
+            </p>
+           
+          </CardBody>
+        </Card>
+      </GridItem>
+    </GridContainer>
+  </div>
   );
 }

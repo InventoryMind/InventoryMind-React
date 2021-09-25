@@ -16,25 +16,44 @@ import CardBody from "components/Card/CardBody.js";
 
 
 export default function Login() {
+ 
   const componentRef = React.useRef();
   const [showResults, setShowResults] = React.useState(false)
-  const onClicked = (e) => {
-    e.preventDefault()
-    setShowResults(true)
-  }
+  const [equipType,setEquipType]=useState();
+  const[equipName,setEquipName]=useState();
+
   const classes = useStyles();
-  const [userType, setUserType] = React.useState('');
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-    console.log(userType)
-  };
+ 
   const ComponentToPrint = React.forwardRef((props, ref) => (
     // <Barcode ref={ref} value={props.value} />
    <div ref={ref}>
       <Barcode ref={ref} value={props.value} />
    </div>
   ));
-
+  const addEquipHandler=async(e)=>{
+    e.preventDefault();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({name:equipName,typeId:equipType})
+    };
+    await fetch(process.env.REACT_APP_API+'/techOff/addEquipment',requestOptions)
+       .then(response => response.json())
+      .then(data=>{
+        alert(data.msg) 
+      }).catch(e=>setResponse("Failed"));
+  }
+  
+  const [response,setResponse]=useState();
+  const [eqTypes,setEqTypes]=useState();
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/techOff/getEquipTypes',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setEqTypes(data.data))
+    .catch(e=>console.log(e));
+  },[])
+  console.log(equipType);
   return (
     <Grid container component="main" >
       <CssBaseline />
@@ -55,6 +74,7 @@ export default function Login() {
               required
               fullWidth
               id="name"
+              onChange={e=>setEquipName(e.target.value)}
               label="Equipment Name"
               name="name"
               autoComplete="name"
@@ -68,17 +88,12 @@ export default function Login() {
               <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                value={userType}
-                onChange={handleChange}
+                onChange={e=>setEquipType(e.target.value)}
                 label="UserType"
                 margin="normal"
                 required fullWidth
               >
-                <MenuItem value={"admin"}>Admin</MenuItem>
-                <MenuItem value={"lecturer"}>Lecturer</MenuItem>
-                <MenuItem value={"tech"}>Technical Officer</MenuItem>
-                {/* newly added */}
-                <MenuItem value={"student"}>Student</MenuItem>
+                {eqTypes && eqTypes.map((da)=><MenuItem key={da.typeId} value={da.typeId}>{da.name}</MenuItem>)}
               </Select>
             </FormControl>
            
@@ -90,7 +105,7 @@ export default function Login() {
 
             <Button
             //   onSubmit={handleSubmit}
-            onClick={onClicked}
+            onClick={addEquipHandler}
               type="submit"
               fullWidth
               variant="contained"

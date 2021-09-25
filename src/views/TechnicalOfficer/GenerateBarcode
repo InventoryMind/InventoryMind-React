@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import { Link } from 'react-router-dom';
 
-export default function Login() {
+export default function GenerateBarcode() {
   
 
   const classes = useStyles();
