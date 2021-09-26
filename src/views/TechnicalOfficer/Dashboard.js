@@ -33,12 +33,14 @@ export default function Dashboard() {
   const classes = useStyles();
   const [data,setData]=useState();
   useEffect(()=>{
+
     fetch(process.env.REACT_APP_API+'/techOff/getDashboardDataM',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
+    console.log(data)
+
   },[])
-  console.log(data)
   return (
     <div>
       <GridContainer>

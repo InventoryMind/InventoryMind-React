@@ -44,8 +44,9 @@ export default function UserProfile() {
      .then(response => response.json())
     .then(data=>setData(data.msg.data))
     .catch(e=>console.log(e));
+    console.log(data);
+
   },[])
-  console.log(data);
   return (
     <div>
       <GridContainer>

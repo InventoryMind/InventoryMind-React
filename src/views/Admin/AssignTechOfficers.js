@@ -27,7 +27,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import { useState,useEffect } from "react";
 
 
 
@@ -116,11 +116,48 @@ export default function TableList() {
   const onCloseModal = () => {
     setOpen(false);
   };
+ 
+  const assignHandler =async ()=>{
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({labId:labID,T_OId:techID})
+    };
+    // console.log(requestOptions);
+    await fetch(process.env.REACT_APP_API+'/admin/assignTO',requestOptions)
+       .then(response => response.json())
+      .then(data=>{
+        if (data.title=="Success"){
+          alert("Assigned successfully")
+        }
+        else{
+          alert("Failed")
+        }
+      }).catch(e=>alert("Failed"));
+      setLabID("");
+      setTechID("");
+  }
 
   // const handleEdit=()=>{
   //   window.location.replace("/lecturer/lecturers/edit/1")
   // }
- 
+  const [TOs,setTOs]=useState();
+  const [labs,setLabs]=useState();
+
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/admin/getTOs',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setTOs(data.msg))
+    .catch(e=>console.log(e));
+
+
+    fetch(process.env.REACT_APP_API+'/admin/getLabs',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>setLabs(data.msg))
+    .catch(e=>console.log(e));
+
+  },[])
 
   return (
     <div>
@@ -150,9 +187,8 @@ export default function TableList() {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {labs && labs.map((lab)=><MenuItem key={lab.lab_id} value={lab.lab_id}>{lab.name+" ("+lab.lab_id+")"}</MenuItem>)}
+
         </Select>
        
       </FormControl>
@@ -169,9 +205,8 @@ export default function TableList() {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {TOs && TOs.map((to)=><MenuItem key={to.user_id} value={to.user_id}>{to.first_name +" "+to.last_name}</MenuItem>)}
+    
         </Select>
        
       </FormControl>
@@ -183,6 +218,7 @@ export default function TableList() {
               
       <Button
             //   onSubmit={handleSubmit}
+            onClick={assignHandler}
               type="submit"
               fullWidth
               variant="contained"

@@ -171,26 +171,26 @@ const columns = [
          flex: 0.5,
         minWidth: 100,
       },
-  {
-    // have to do the required for edit and delete button
-    field: 'action',
-    headerName: 'Action',
-    minwidth:150,
-    flex:0.8,
-    renderCell: (params) => (
-      <strong>
-        {/* {params.value.getFullYear()} */}
-        <IconButton aria-label="edit" >
-          <EditIcon fontSize="inherit" />
-        </IconButton>
-        <IconButton aria-label="delete" >
-          <DeleteIcon fontSize="inherit" />
-        </IconButton>
+  // {
+  //   // have to do the required for edit and delete button
+  //   field: 'action',
+  //   headerName: 'Action',
+  //   minwidth:150,
+  //   flex:0.8,
+  //   renderCell: (params) => (
+  //     <strong>
+  //       {/* {params.value.getFullYear()} */}
+  //       <IconButton aria-label="edit" >
+  //         <EditIcon fontSize="inherit" />
+  //       </IconButton>
+  //       <IconButton aria-label="delete" >
+  //         <DeleteIcon fontSize="inherit" />
+  //       </IconButton>
         
         
-      </strong>
-    ),
-  }
+  //     </strong>
+  //   ),
+  // }
 ];
 
 

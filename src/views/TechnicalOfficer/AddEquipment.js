@@ -18,7 +18,7 @@ import CardBody from "components/Card/CardBody.js";
 export default function Login() {
  
   const componentRef = React.useRef();
-  const [showResults, setShowResults] = React.useState(false)
+  const [showResults, setShowResults] = React.useState()
   const [equipType,setEquipType]=useState();
   const[equipName,setEquipName]=useState();
 
@@ -41,6 +41,7 @@ export default function Login() {
     await fetch(process.env.REACT_APP_API+'/techOff/addEquipment',requestOptions)
        .then(response => response.json())
       .then(data=>{
+        setShowResults(data.eqId)
         alert(data.msg) 
       }).catch(e=>setResponse("Failed"));
   }
@@ -122,7 +123,7 @@ export default function Login() {
         </Card>
         </div>
        
-        { showResults ?  <div><ComponentToPrint ref={componentRef} value = 'something' />
+        { showResults ?  <div><ComponentToPrint ref={componentRef} value = {showResults} />
             <button onClick={() => exportComponentAsJPEG(componentRef)}>
          Export As JPEG
         </button>
