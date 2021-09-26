@@ -114,7 +114,10 @@ export default function TableList() {
   // const [token,setToken]=useToken();
 
   // const [token,setToken]=useToken();
-
+  const [buildings,setBuildings]=useState();
+  const [labId,setLabId]=useState();
+  const [name,setName]=useState();
+  const [floor,setFloor]=useState();
   const [data,setData]=useState();
   var rows=[];
   useEffect(()=>{
@@ -155,16 +158,17 @@ if (data){
        .then(response => response.json())
       .then(data=>{
         if (data.title=="Success"){
-          onCloseModal();
+          alert("Lab added successfully")
         }
-  
-      }).catch(e=>setResponse("Failed"));
+        else{
+          alert("Failed")
+        }
+        onCloseModal();
+      }).catch(e=>alert("Failed"));
   }
-  // console.log(data);
-  const [buildings,setBuildings]=useState();
-  const [labId,setLabId]=useState();
-  const [name,setName]=useState();
-  const [floor,setFloor]=useState();
+
+  console.log(data);
+  
   
   return (
     <div>
@@ -215,7 +219,7 @@ if (data){
             <em>None</em>
           </MenuItem>
 
-          <MenuItem value={buildings==null ? 0 :buildings[0].b_id}>{buildings==null? "" :buildings[0].b_name}</MenuItem>
+          {buildings && buildings.map((b)=><MenuItem key={b.b_id} value={b.b_id}>{b.b_name}</MenuItem>)}
         </Select>
       </FormControl>
       </div>
@@ -316,9 +320,9 @@ const columns = [
     renderCell: (params) => (
       <strong>
         
-        <IconButton aria-label="edit" >
+        {/* <IconButton onClick={editHandler} aria-label="edit" >
           <EditIcon fontSize="inherit" />
-        </IconButton>
+        </IconButton> */}
         <IconButton aria-label="delete" >
           <DeleteIcon fontSize="inherit" />
         </IconButton>
@@ -328,33 +332,4 @@ const columns = [
     ),
   }
 ];
-
-// fetch()
-
-// const rows = [
-//   {
-//     id: 1,
-//     ID:1,
-//     LabID:143,
-//     Name:"CSE Lab",
-//     Building:"Sumanadasa",
-//     Floor:4,
-//   },
-//   {
-//     id: 2,
-//     ID:2,
-//     LabID:143,
-//     Name:"CSE Lab",
-//     Building:"Sumanadasa",
-//     Floor:4,
-//   },
-//   {
-//     id: 3,
-//     ID:3,
-//     LabID:143,
-//     Name:"CSE Lab",
-//     Building:"Sumanadasa",
-//     Floor:4,
-//   },
-// ];
 

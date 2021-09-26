@@ -30,7 +30,7 @@ export default function Dashboard() {
   const classes = useStyles();
   const [data,setData]=useState();
   useEffect(()=>{
-    fetch(process.env.REACT_APP_API+'/admin/getDashboardDataM',{credentials:'include'})
+    fetch(process.env.REACT_APP_API+'/admin/getDashboardData',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
@@ -48,7 +48,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>No of Laboratories</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}> 49</h3>
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." : data.laboratory.count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -66,7 +66,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>No of Lecturers</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}>245</h3>
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." : data.lecturer.count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -84,7 +84,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Technical Officers</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}>75</h3>
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." : data.technicalOfficer.count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -102,7 +102,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>No of Students</p>
               {/* fetch() */}
-              <h3 className={classes.cardTitle}>245</h3>
+              <h3 className={classes.cardTitle}>{data==null ? "Loading..." : data.student.count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>

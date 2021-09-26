@@ -90,6 +90,9 @@ export default function TableList() {
   //   window.location.replace("/lecturer/lecturers/edit/1")
   // }
  
+  const onReport=(e)=>{
+    console.log(e)
+  }
 
   return (
     <div>
