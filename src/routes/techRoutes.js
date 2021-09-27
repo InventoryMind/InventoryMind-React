@@ -97,14 +97,14 @@ const dashboardRoutes = [
     component: BorrowedItems,
     layout: "/tech",
   },
-  // {
-  //   path: "/generatedReports",
-  //   name: "Generated Reports",
-  //   rtlName: "خرائط",
-  //   icon: ReportProblem,
-  //   component: GeneratedReports,
-  //   layout: "/tech",
-  // },
+  {
+    path: "/generatedReports",
+    name: "Generated Reports",
+    rtlName: "خرائط",
+    icon: ReportProblem,
+    component: GeneratedReports,
+    layout: "/tech",
+  },
   {
     path: "/notifications",
     name: "Notifications",

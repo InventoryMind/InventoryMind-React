@@ -163,7 +163,7 @@ const columns = [
           size="small"
           style={{ marginLeft: 16 }}
         >
-          Broken
+          Not Usable
         </Button>
         <Button
           variant="contained"
@@ -171,7 +171,7 @@ const columns = [
           size="small"
           style={{ marginLeft: 16 }}
         >
-          Not Usable
+          Damaged
         </Button>
       </strong>
     ),
