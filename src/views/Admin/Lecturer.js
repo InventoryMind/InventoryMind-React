@@ -103,13 +103,15 @@ export default function TableList() {
   const handleEdit=()=>{
     window.location.replace("/lecturer/lecturers/edit/1")
   }
- 
+ const fetchData=()=>{
+  fetch(process.env.REACT_APP_API+'/admin/viewUsers/lecturer',{credentials:'include'})
+  .then(response => response.json())
+ .then(data=>setData(data.msg))
+ .catch(e=>console.log(e));
+ }
   const [data,setData]=useState();
   useEffect(()=>{
-    fetch(process.env.REACT_APP_API+'/admin/viewUsers/lecturer',{credentials:'include'})
-     .then(response => response.json())
-    .then(data=>setData(data.msg))
-    .catch(e=>console.log(e));
+    fetchData();
   },[])
   console.log(data)
 
@@ -143,6 +145,8 @@ async function addLecturerHandler(){
         onCloseModal();
         alert(data.message);
     }).catch(e=>setResponse("Failed"));
+
+    fetchData();
 }
 console.log(response);
 const[response,setResponse]=useState();
@@ -278,9 +282,9 @@ const columns = [
     renderCell: (params) => (
       <strong>
         
-        <IconButton aria-label="edit" >
+        {/* <IconButton aria-label="edit" >
           <EditIcon fontSize="inherit" />
-        </IconButton>
+        </IconButton> */}
         <IconButton aria-label="delete" >
           <DeleteIcon fontSize="inherit" />
         </IconButton>

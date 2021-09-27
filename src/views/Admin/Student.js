@@ -101,13 +101,21 @@ export default function TableList() {
     window.location.replace("/lecturer/lecturers/edit/1")
   }
   const [data,setData]=useState();
-  useEffect(()=>{
+  const fetchData=()=>{
     fetch(process.env.REACT_APP_API+'/admin/viewUsers/student',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
+  }
+  useEffect(()=>{
+    fetchData();
+    // fetch(process.env.REACT_APP_API+'/admin/viewUsers/student',{credentials:'include'})
+    //  .then(response => response.json())
+    // .then(data=>setData(data.msg))
+    // .catch(e=>console.log(e));
+    console.log(data)
+
   },[])
-  console.log(data)
 
   var rows=[]
 if (data){
@@ -124,7 +132,8 @@ if (data){
   }
 }
 
-async function addLecturerHandler(){
+async function addStudentHandler(){
+  console.log("CLicked")
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -135,11 +144,11 @@ async function addLecturerHandler(){
   await fetch(process.env.REACT_APP_API+'/admin/addStaff',requestOptions)
      .then(response => response.json())
     .then(data=>{
-      if (data.title=="Success"){
+      alert(data.message)
         onCloseModal();
-      }
-
     }).catch(e=>setResponse("Failed"));
+    fetchData();
+
 }
 console.log(response);
 const[response,setResponse]=useState();
@@ -184,7 +193,7 @@ const [contactNo,setContactNo]=useState();
     </Box>
          
         {/* submit button inside the modal need to be implemnted */}
-        <Button variant="contained"  color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
+        <Button variant="contained" onClick={addStudentHandler} color="light blue" size="small" className={classes.button} startIcon={<SaveIcon />}>
         Submit
       </Button>
           </div>
@@ -264,26 +273,26 @@ const columns = [
          flex: 0.5,
         minWidth: 100,
       },
-  {
-    //edit and delete button to be implemnted
-    field: 'action',
-    headerName: 'Action',
-    minwidth:150,
-    flex:0.8,
-    renderCell: (params) => (
-      <strong>
+  // {
+  //   //edit and delete button to be implemnted
+  //   field: 'action',
+  //   headerName: 'Action',
+  //   minwidth:150,
+  //   flex:0.8,
+  //   renderCell: (params) => (
+  //     <strong>
         
-        <IconButton aria-label="edit" >
-          <EditIcon fontSize="inherit" />
-        </IconButton>
-        <IconButton aria-label="delete" >
-          <DeleteIcon fontSize="inherit" />
-        </IconButton>
+  //       {/* <IconButton aria-label="edit" >
+  //         <EditIcon fontSize="inherit" />
+  //       </IconButton> */}
+  //       <IconButton aria-label="delete" >
+  //         <DeleteIcon fontSize="inherit" />
+  //       </IconButton>
         
         
-      </strong>
-    ),
-  }
+  //     </strong>
+  //   ),
+  // }
 ];
 
 
