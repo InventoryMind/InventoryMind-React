@@ -32,7 +32,9 @@ export default function Login() {
        .then(response => response.json())
       .then(data=>{
         if (data.title=="Success"){
-          onCloseModal();
+          alert("Succesfuly added");
+          setType("");
+          setBrand("");
         }
   
       }).catch(e=>setResponse("Failed"));
@@ -60,6 +62,7 @@ export default function Login() {
               id="type"
               label="Type"
               name="type"
+              value={type}
               onChange={e=>setType(e.target.value)}
               autoComplete="type"
               autoFocus
@@ -72,6 +75,7 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              value={brand}
               id="brand"
               label="Brand"
               name="brand"

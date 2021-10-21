@@ -23,7 +23,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
+import {useEffect,useState} from 'react';
 
 
 
@@ -85,11 +85,35 @@ export default function TableList() {
   const [open,setOpen]=React.useState(false);
 
   const classes = useStyles();
-  
+  var rows=[];
 
+  const [items,setItems]=useState();
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/techOff/viewBorrowedEquips',{credentials:'include'})
+     .then(response => response.json())
+    .then(data=>{
+      setItems(data.data);
+    })
+    .catch(e=>console.log(e));
+  },[]);
   
+  if(items){
+    for (let i=0;i < items.length;i++) {
+      let element=items[i]
+      rows.push({
+        id:i+1,
+    ID:i+1,
+    StudentID:element.student_id,
+    BorrowID:element.borrow_id, 
+    EquipmentID:element.eq_id,
+    Name:element.name,
+    BorrowDate:element.date_of_borrowing,
+    ReturnDate:element.date_of_returning
+      })
+    };
+  }
+  console.log(rows)
  
-
   return (
     <div>
     
@@ -171,38 +195,7 @@ const columns = [
       },
 ];
  {/* fetch() */}
-const rows = [
-  {
-    id: 1,
-    ID:1,
-    StudentID:45,
-    BorrowID:343, 
-    EquipmentID:23353,
-    Name:"table",
-    BorrowDate:"01/05/2021",
-    ReturnDate:"07/05/2021"
-  },
-  {
-    id: 2,
-    ID:2,
-    StudentID:45,
-    BorrowID:343, 
-    EquipmentID:23353,
-    Name:"table",
-    BorrowDate:"01/05/2021",
-    ReturnDate:"07/05/2021"
-  },
-  {
-    id: 3,
-    ID:3,
-    StudentID:45,
-    BorrowID:343, 
-    EquipmentID:23353,
-    Name:"table",
-    BorrowDate:"01/05/2021",
-    ReturnDate:"07/05/2021"
-  },
-];
+
 
 // export default function RenderCellGrid() {
 //   return (

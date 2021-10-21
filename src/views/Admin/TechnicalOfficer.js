@@ -129,7 +129,9 @@ if (data){
   }
 }
 
-
+const deleteHandler=async(e)=>{
+  console.log(e.target);
+}
 async function addTOHandler(){
   const requestOptions = {
     method: 'POST',
@@ -154,7 +156,72 @@ const [lastName,setLastName]=useState();
 const [email,setEmail]=useState();
 const [contactNo,setContactNo]=useState();
 
-
+const columns = [
+    
+  {
+      field: 'ID',
+      headerName: 'ID',
+      flex: 0.3,
+      minwidth:50,
+      
+    },
+    {
+      field: 'TechOfficerID',
+      headerName: 'Tech Officer ID',
+       flex: 0.5,
+      minWidth: 70,
+    },
+    {
+      field: 'firstName',
+      headerName: 'First Name',
+       flex: 0.5,
+      minWidth: 100,
+    },
+    {
+      field: 'lastName',
+      headerName: 'Last Name',
+       flex: 0.5,
+      minWidth: 100,
+    },
+    {
+      field: 'LabName',
+      headerName: 'Lab Name',
+       flex: 0.5,
+      minWidth: 70,
+    },
+    {
+      field: 'Email',
+      headerName: 'Email',
+       flex: 0.7,
+      minWidth: 150,
+    },
+    {
+      field: 'ContactNo',
+      headerName: 'Contact No',
+       flex: 0.5,
+      minWidth: 100,
+    },
+{
+  //edit and delete button need to be implemented
+  field: 'action',
+  headerName: 'Action',
+  minwidth:120,
+  flex:0.6,
+  renderCell: (params) => (
+    <strong>
+      
+      {/* <IconButton aria-label="edit" >
+        <EditIcon fontSize="inherit" />
+      </IconButton> */}
+      <IconButton onClick={deleteHandler} aria-label="delete" >
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+      
+      
+    </strong>
+  ),
+}
+];
 
   return (
     <div>
@@ -232,71 +299,6 @@ const [contactNo,setContactNo]=useState();
 
 
 
-const columns = [
-    
-    {
-        field: 'ID',
-        headerName: 'ID',
-        flex: 0.3,
-        minwidth:50,
-        
-      },
-      {
-        field: 'TechOfficerID',
-        headerName: 'Tech Officer ID',
-         flex: 0.5,
-        minWidth: 70,
-      },
-      {
-        field: 'firstName',
-        headerName: 'First Name',
-         flex: 0.5,
-        minWidth: 100,
-      },
-      {
-        field: 'lastName',
-        headerName: 'Last Name',
-         flex: 0.5,
-        minWidth: 100,
-      },
-      {
-        field: 'LabName',
-        headerName: 'Lab Name',
-         flex: 0.5,
-        minWidth: 70,
-      },
-      {
-        field: 'Email',
-        headerName: 'Email',
-         flex: 0.7,
-        minWidth: 150,
-      },
-      {
-        field: 'ContactNo',
-        headerName: 'Contact No',
-         flex: 0.5,
-        minWidth: 100,
-      },
-  {
-    //edit and delete button need to be implemented
-    field: 'action',
-    headerName: 'Action',
-    minwidth:120,
-    flex:0.6,
-    renderCell: (params) => (
-      <strong>
-        
-        {/* <IconButton aria-label="edit" >
-          <EditIcon fontSize="inherit" />
-        </IconButton> */}
-        <IconButton aria-label="delete" >
-          <DeleteIcon fontSize="inherit" />
-        </IconButton>
-        
-        
-      </strong>
-    ),
-  }
-];
+
 // fetch()
 
