@@ -118,13 +118,12 @@ export default function TableList() {
    .catch(e=>console.log(e));
     setOpen(true)
   };
-	const handleClose = () => setOpen(false);
-
+  const handleClose = () =>{
+    setEqData(); 
+    setOpen(false);
+  }
 	const classes = useStyles();
 
-	const handleEdit = () => {
-		window.location.replace("/lecturer/lecturers/edit/1");
-	};
   const [history,setHistory]=useState();
   var rows=[]
   

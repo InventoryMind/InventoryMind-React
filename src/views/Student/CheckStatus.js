@@ -118,8 +118,10 @@ export default function TableList() {
    .catch(e=>console.log(e));
     setOpen(true)
   };
-	const handleClose = () => setOpen(false);
-
+  const handleClose = () =>{
+    setEqData(); 
+    setOpen(false);
+  }
 	const classes = useStyles();
 
 	const handleEdit = () => {
