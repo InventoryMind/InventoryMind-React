@@ -129,9 +129,23 @@ if (data){
   }
 }
 
-const deleteHandler=async(e)=>{
-  console.log(e.target);
+const deleteHandler=(userId)=>{
+  console.log("delete Caled")
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body:JSON.stringify({userType:"technical_officer",userId:userId})
+  };
+  fetch(process.env.REACT_APP_API+'/admin/removeUser',requestOptions)
+    .then(response => response.json())
+   .then(data1=>{
+    setData(data.filter(element=>element.user_id!=userId))
+     alert(data1.message);
+   })
+   .catch(e=>console.log(e));
 }
+
 async function addTOHandler(){
   const requestOptions = {
     method: 'POST',
@@ -213,7 +227,7 @@ const columns = [
       {/* <IconButton aria-label="edit" >
         <EditIcon fontSize="inherit" />
       </IconButton> */}
-      <IconButton onClick={deleteHandler} aria-label="delete" >
+      <IconButton onClick={()=>deleteHandler(params.row.TechOfficerID)} aria-label="delete" >
         <DeleteIcon fontSize="inherit" />
       </IconButton>
       

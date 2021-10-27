@@ -103,6 +103,24 @@ export default function TableList() {
   const handleEdit=()=>{
     window.location.replace("/lecturer/lecturers/edit/1")
   }
+
+  const deleteHandler=(userId)=>{
+    console.log("delete Caled")
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body:JSON.stringify({userType:"lecturer",userId:userId})
+    };
+    fetch(process.env.REACT_APP_API+'/admin/removeUser',requestOptions)
+      .then(response => response.json())
+     .then(data1=>{
+      setData(data.filter(element=>element.user_id!=userId))
+       alert(data1.message);
+     })
+     .catch(e=>console.log(e));
+  }
+
  const fetchData=()=>{
   fetch(process.env.REACT_APP_API+'/admin/viewUsers/lecturer',{credentials:'include'})
   .then(response => response.json())
@@ -156,6 +174,63 @@ const [lastName,setLastName]=useState();
 const [email,setEmail]=useState();
 const [contactNo,setContactNo]=useState();
 
+const columns = [
+    
+  {
+      field: 'ID',
+      headerName: 'ID',
+      flex: 0.3,
+      minwidth:50,
+      
+    },
+    {
+      field: 'LecturerID',
+      headerName: 'User ID',
+       flex: 0.5,
+      minWidth: 70,
+    },
+    {
+       field: 'firstName',
+      headerName: 'First Name',
+       flex: 0.5,
+      minWidth: 100,
+    },
+    {
+      field: 'lastName',
+      headerName: 'Last Name',
+       flex: 0.5,
+      minWidth: 100,
+    },
+    {
+      field: 'Email',
+      headerName: 'Email',
+       flex: 0.7,
+      minWidth: 150,
+    },
+    {
+      field: 'ContactNo',
+      headerName: 'ContactNo',
+       flex: 0.5,
+      minWidth: 100,
+    },
+{
+  // edit and delete button to be implemented
+  field: 'action',
+  headerName: 'Action',
+  minwidth:150,
+  flex:0.8,
+  renderCell: (params) => (
+    <strong>
+      
+      <IconButton onClick={()=>{deleteHandler(params.row.LecturerID)}} aria-label="delete" >
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+      
+      
+    </strong>
+  ),
+}
+];
 
   return (
     <div>
@@ -234,65 +309,6 @@ const [contactNo,setContactNo]=useState();
 
 
 
-const columns = [
-    
-    {
-        field: 'ID',
-        headerName: 'ID',
-        flex: 0.3,
-        minwidth:50,
-        
-      },
-      {
-        field: 'LecturerID',
-        headerName: 'User ID',
-         flex: 0.5,
-        minWidth: 70,
-      },
-      {
-         field: 'firstName',
-        headerName: 'First Name',
-         flex: 0.5,
-        minWidth: 100,
-      },
-      {
-        field: 'lastName',
-        headerName: 'Last Name',
-         flex: 0.5,
-        minWidth: 100,
-      },
-      {
-        field: 'Email',
-        headerName: 'Email',
-         flex: 0.7,
-        minWidth: 150,
-      },
-      {
-        field: 'ContactNo',
-        headerName: 'ContactNo',
-         flex: 0.5,
-        minWidth: 100,
-      },
-  {
-    // edit and delete button to be implemented
-    field: 'action',
-    headerName: 'Action',
-    minwidth:150,
-    flex:0.8,
-    renderCell: (params) => (
-      <strong>
-        
-        {/* <IconButton aria-label="edit" >
-          <EditIcon fontSize="inherit" />
-        </IconButton> */}
-        <IconButton aria-label="delete" >
-          <DeleteIcon fontSize="inherit" />
-        </IconButton>
-        
-        
-      </strong>
-    ),
-  }
-];
+
 // fetch()
 

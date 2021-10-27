@@ -68,6 +68,7 @@ import { useReactToPrint } from "react-to-print";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
+import { useEffect,useState } from "react";
 
 const useStyles = makeStyles(styles);
 var today = new Date(),
@@ -83,6 +84,37 @@ function Dashboard() {
 	//       <Barcode ref={ref} value={props.value} />
 	//    </div>
 	//   ));
+	const [userStats,setUserStats]=useState();
+	const [requestStats,setRequestStats]=useState();
+	const [equipStats,setEquipStats]=useState({});
+
+	useEffect(()=>{
+		fetch(process.env.REACT_APP_API+'/techOff/getUserStats',{credentials:'include'})
+		 .then(response => response.json())
+		.then(data=>{
+			console.log(data)
+		  setUserStats(data.msg);
+		})
+		.catch(e=>console.log(e));
+
+		fetch(process.env.REACT_APP_API+'/techOff/getRequestStats',{credentials:'include'})
+		 .then(response => response.json())
+		.then(data=>{
+		  setRequestStats(data.msg);
+		})
+		.catch(e=>console.log(e));
+
+		fetch(process.env.REACT_APP_API+'/techOff/getDashboardDataM',{credentials:'include'})
+		 .then(response => response.json())
+		.then(data=>{
+		  setEquipStats(data.msg);
+		})
+		.catch(e=>console.log(e));
+	  },[]);
+
+	  console.log(equipStats);
+	  console.log(userStats);
+	  console.log(requestStats);
 	return (
 		<div>
 			<GridContainer>
@@ -106,7 +138,7 @@ function Dashboard() {
 									datasets: [
 										{
 											label: "# of Equipments",
-											data: [12, 19, 3, 5, 2, 3],
+											data: [equipStats.available==null ? 0 : equipStats.available, equipStats.requested==null ? 0 : equipStats.requested, equipStats.temporaryBorrowed==null ? 0 :equipStats.temporaryBorrowed,equipStats.normalBorrowed==null ? 0 :equipStats.normalBorrowed,equipStats.notUsable==null ? 0 : equipStats.notUsable,equipStats.removed==null ? 0 : equipStats.removed],
 											backgroundColor: [
 												"rgba(255, 99, 132, 0.2)",
 												"rgba(54, 162, 235, 0.2)",
@@ -161,7 +193,7 @@ function Dashboard() {
 									datasets: [
 										{
 											label: "# of Votes",
-											data: [12, 19, 3, 5, 2, 3],
+											data: [equipStats.available==null ? 0 : equipStats.available, equipStats.requested==null ? 0 : equipStats.requested, equipStats.temporaryBorrowed==null ? 0 :equipStats.temporaryBorrowed,equipStats.normalBorrowed==null ? 0 :equipStats.normalBorrowed,equipStats.notUsable==null ? 0 : equipStats.notUsable,equipStats.removed==null ? 0 : equipStats.removed],
 											backgroundColor: [
 												"rgba(255, 99, 132, 0.2)",
 												"rgba(54, 162, 235, 0.2)",
