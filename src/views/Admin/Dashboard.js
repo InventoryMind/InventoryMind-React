@@ -116,7 +116,7 @@ export default function Dashboard() {
      
       <GridContainer>
                <GridItem xs={12} sm={12} md={12}>
-          <Card>
+          {/* <Card>
             <CardHeader color="warning">
               <h4 className={classes.cardTitleWhite}>User Stats</h4>
               <p className={classes.cardCategoryWhite}>
@@ -136,7 +136,7 @@ export default function Dashboard() {
                 ]}
               />
             </CardBody>
-          </Card>
+          </Card> */}
         </GridItem>
         
       </GridContainer>

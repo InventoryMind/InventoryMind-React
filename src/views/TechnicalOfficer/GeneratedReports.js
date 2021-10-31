@@ -138,7 +138,7 @@ function Dashboard() {
 									datasets: [
 										{
 											label: "# of Equipments",
-											data: [equipStats.available==null ? 0 : equipStats.available, equipStats.requested==null ? 0 : equipStats.requested, equipStats.temporaryBorrowed==null ? 0 :equipStats.temporaryBorrowed,equipStats.normalBorrowed==null ? 0 :equipStats.normalBorrowed,equipStats.notUsable==null ? 0 : equipStats.notUsable,equipStats.removed==null ? 0 : equipStats.removed],
+											data: [equipStats[0].count,equipStats[1].count,equipStats[2].count,equipStats[3].count,equipStats[4].count,equipStats[5].count],
 											backgroundColor: [
 												"rgba(255, 99, 132, 0.2)",
 												"rgba(54, 162, 235, 0.2)",

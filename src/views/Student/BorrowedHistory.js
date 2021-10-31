@@ -110,10 +110,12 @@ export default function TableList() {
       body: JSON.stringify({borrowId:ID,type:type})
     };
     fetch(process.env.REACT_APP_API+'/student/viewBorrow',requestOptions)
-    .then(response => response.json())
+    .then(response =>{if (response.status==200){return new Promise((resolve)=>resolve(response.json()))}})
    .then(data=>{
-     setEqData(data.msg);
-    //  console.log(data.msg)
+	if(data)setEqData(data.msg);
+	else {alert("No Data to show");
+	setOpen(false);
+}    //  console.log(data.msg)
    })
    .catch(e=>console.log(e));
     setOpen(true)

@@ -110,13 +110,18 @@ export default function TableList() {
       body: JSON.stringify({borrowId:ID,type:type})
     };
     fetch(process.env.REACT_APP_API+'/student/viewRequest/'+ID,{credentials:'include'})
-    .then(response => response.json())
+    .then(response =>{if (response.status==200){return new Promise((resolve)=>resolve(response.json()))}})
    .then(data=>{
-     setEqData(data.msg);
+	   if(data)setEqData(data.msg);
+	   else {alert("No Data to show");
+	   setOpen(false);
+   }
     //  console.log(data.msg)
    })
    .catch(e=>console.log(e));
-    setOpen(true)
+ setOpen(true)
+//    if (eqData)setOpen(true);
+//    else alert("No Data to show")
   };
   const handleClose = () =>{
     setEqData(); 
@@ -138,7 +143,7 @@ export default function TableList() {
     })
     .catch(e=>console.log(e));
   },[]);
-  console.log(history);
+  console.log(eqData);
 
   if(history){
     for (let i=0;i < history.length;i++) {
@@ -222,7 +227,7 @@ export default function TableList() {
 				<GridItem xs={12} sm={12} md={12}>
 					<Card>
 						<CardHeader color="primary">
-							<h4 className={classes.cardTitleWhite}>Approved Requests</h4>
+							<h4 className={classes.cardTitleWhite}>Pending Requests</h4>
 						</CardHeader>
 						<CardBody>
 							{/* <LocalizationProvider dateAdapter={AdapterDateFns}>

@@ -109,14 +109,14 @@ const dashboardRoutes = [
   //   component: AssignTechOfficers,
   //   layout: "/admin",
   // },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    // rtlName: "قائمة الجدول",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/notifications",
+  //   name: "Notifications",
+  //   // rtlName: "قائمة الجدول",
+  //   icon: Notifications,
+  //   component: NotificationsPage,
+  //   layout: "/admin",
+  // },
   
  
   
