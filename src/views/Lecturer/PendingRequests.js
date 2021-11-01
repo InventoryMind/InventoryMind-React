@@ -162,6 +162,7 @@ const reject=(id,reqId)=>{
     fetch(process.env.REACT_APP_API+'/lecturer/viewPendingRequest',{credentials:'include'})
      .then(response => response.json())
     .then(data=>{
+      // console.log(data)
       setHistory(data.msg);
     })
     .catch(e=>console.log(e));

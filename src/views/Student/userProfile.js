@@ -70,6 +70,8 @@ export default function UserProfile() {
                     }}
                   />
                 </GridItem>
+                </GridContainer>
+                <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                  {/* fetch() */}
                   <CustomInput
@@ -94,6 +96,8 @@ export default function UserProfile() {
                     }}
                   />
                 </GridItem>
+               </GridContainer> 
+              <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                 {/* fetch() */}
                   <CustomInput
@@ -121,47 +125,14 @@ export default function UserProfile() {
                  {/* fetch() */}
     
               </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  {/* <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel> */}
-                   {/* fetch() */}
-                  <CustomInput
-                    labelText="About me"
-                    id="about-me"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5,
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
+              
             </CardBody>
-            <CardFooter>
+            {/* <CardFooter>
               <Button color="primary">Update Profile</Button>
-            </CardFooter>
+            </CardFooter> */}
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={avatar} alt="..." />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <p className={classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
-              </p>
-             
-            </CardBody>
-          </Card>
-        </GridItem>
+        
       </GridContainer>
     </div>
   );

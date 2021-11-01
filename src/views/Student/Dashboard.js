@@ -35,6 +35,7 @@ import jwt_decode from 'jwt-decode';
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { People } from "@material-ui/icons";
+import { element } from "prop-types";
 
 const useStyles = makeStyles(styles);
 var today = new Date(),
@@ -47,7 +48,27 @@ export default function Dashboard() {
   // const {token,setToken}=useToken();
   // var decoded=jwt_decode(token);
   // console.log(decoded);
+  const [data,setData]=useState();
 
+  useEffect(()=>{
+    console.log("sff")
+    fetch(process.env.REACT_APP_API+'/student/getDashboardDataM',{credentials:'include'})
+     .then(response =>{
+       if (response.status==200)return new Promise((resolve)=>resolve(response.json()));
+       else alert("Service Unavailable")
+     })
+    .then(data=>{
+      setData(data.msg);
+    })
+    .catch(e=>console.log(e));
+  },[]);
+  console.log(data);
+
+  var rows=[];
+  if(data)
+{data.forEach((element,i)=>{
+  rows.push([i+1,element.borrowId,element.dateOfBorrowing,element.dateOfReturning,element.type])
+})}
 
   return (
     <div>
@@ -132,22 +153,17 @@ export default function Dashboard() {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Borrowed History</h4>
+              <h4 className={classes.cardTitleWhite}>Returns Pending</h4>
               <p className={classes.cardCategoryWhite}>
-                Requests as of {date}
+                Details as of {date}
               </p>
             </CardHeader>
             <CardBody>
               <Table
                 tableHeaderColor="warning"
-                tableHead={["ID", "Borrow ID", "Equipment ID", "Equpiment Name","Borrowed Date"]}
+                tableHead={["ID", "Borrow ID", "Date of Borrowing", "Date of Returning","Type"]}
                 // fetch()
-                tableData={[
-                  ["1", "Dakota Rice", "abc@gmail.com", "Niger","01/05/2021"],
-                  ["2", "Minerva Hooper", "abc@gmail.com", "Curaçao","01/05/2021"],
-                  ["3", "Sage Rodriguez", "abc@gmail.com", "Netherlands","01/05/2021"],
-                  ["4", "Philip Chaney", "abc@gmail.com", "Korea, South","01/05/2021"],
-                ]}
+                tableData={rows}
               />
             </CardBody>
           </Card>

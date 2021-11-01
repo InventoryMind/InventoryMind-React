@@ -18,6 +18,7 @@ import Laboratory from "views/Admin/Laboratory";
 // import Laboratory from "views/Laboratory/Laboratory.js";
 //import Typography from "views/Typography/Typography.js";
 import Lecturer from "views/Admin/Lecturer";
+import GeneratedReports from "views/Admin/GeneratedReports";
 // import Lecturer from "views/Lecturer/Lecturer.js";
 //import Icons from "views/Icons/Icons.js";
 //import Maps from "views/Maps/Maps.js";
@@ -29,7 +30,7 @@ import AddType from "views/Admin/AddEquipmentType";
 // import Student from "views/Student/Student.js";
 // import TechnicalOfficer from "views/TechnicalOfficer/TechnicalOfficer.js";
 // import NotificationsPage from "views/Notifications/Notifications.js";
-import {Lock,Domain,GroupAdd,AccountCircle} from '@material-ui/icons';
+import {Lock,Domain,GroupAdd,AccountCircle,ReportProblem} from '@material-ui/icons';
 import {Add} from '@mui/icons-material';
 //import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
@@ -100,15 +101,14 @@ const dashboardRoutes = [
     component: AddType,
     layout: "/admin",
   },
-  
-  // {
-  //   path: "/passwordReset",
-  //   name: "Password Reset",
-  //   rtlName: "قائمة الجدول",
-  //   icon: Lock,
-  //   component: AssignTechOfficers,
-  //   layout: "/admin",
-  // },
+ 
+  {
+    path: "/generatedReport",
+    name: "Report Summary",
+    icon: ReportProblem,
+    component: GeneratedReports,
+    layout: "/admin",
+  },
   // {
   //   path: "/notifications",
   //   name: "Notifications",

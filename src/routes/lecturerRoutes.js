@@ -68,14 +68,14 @@ const dashboardRoutes = [
   //   component: RejectedRequests,
   //   layout: "/lecturer",
   // },
-  {
-    path: "/notifications",
-    name: "Notifications",  
-    rtlName: "الرموز",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/lecturer",
-  },
+  // {
+  //   path: "/notifications",
+  //   name: "Notifications",  
+  //   rtlName: "الرموز",
+  //   icon: Notifications,
+  //   component: NotificationsPage,
+  //   layout: "/lecturer",
+  // },
   // {
   //   path: "/student",
   //   name: "Student",

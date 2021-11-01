@@ -58,13 +58,13 @@ const dashboardRoutes = [
     component: InventoryItems,
     layout: "/tech",
   },
-  {
-    path: "/addReport",
-    name: "Add Report",
-    icon: Report,
-    component: AddReport,
-    layout: "/tech",
-  },
+  // {
+  //   path: "/addReport",
+  //   name: "Add Report",
+  //   icon: Report,
+  //   component: AddReport,
+  //   layout: "/tech",
+  // },
   {
     path: "/borrowItems",
     name: "Borrowed Items",
@@ -79,13 +79,13 @@ const dashboardRoutes = [
     component: GeneratedReports,
     layout: "/tech",
   },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/tech",
-  },
+  // {
+  //   path: "/notifications",
+  //   name: "Notifications",
+  //   icon: Notifications,
+  //   component: NotificationsPage,
+  //   layout: "/tech",
+  // },
   
   
  
