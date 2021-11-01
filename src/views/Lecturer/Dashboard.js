@@ -29,11 +29,12 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import { useEffect,useState } from "react";
 
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { People } from "@material-ui/icons";
+import { parseIsolatedEntityName } from "typescript";
 
 const useStyles = makeStyles(styles);
 var today = new Date(),
@@ -42,28 +43,22 @@ date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(
 
 export default function Dashboard() {
   const classes = useStyles();
+  const [data,setData]=useState();
+
+  useEffect(()=>{
+    fetch(process.env.REACT_APP_API+'/lecturer/getDashboardDataM',{credentials:'include'})
+     .then(response => response.json())
+    .then(data1=>{
+      // console.log(data1)
+      setData(data1.msg.data);
+    })
+    .catch(e=>console.log(e));
+  },[]);
+  console.log(data)
   return (
     <div>
       <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-                {/* <Icon>content_copy</Icon> */}
-                <Store />
-              </CardIcon>
-              <p className={classes.cardCategory}>Total Requests</p>
-              {/* fetch() */}
-              <h3 className={classes.cardTitle}> 49</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <DescriptionIcon />
-                Total nummber of Requests
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
+    
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="success" stats icon>
@@ -72,7 +67,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Pending Requests</p>
                 {/* fetch() */}
-              <h3 className={classes.cardTitle}>245</h3>
+              <h3 className={classes.cardTitle}>{data==undefined ? 0:data[0].count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -90,7 +85,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Approved Requests</p>
                 {/* fetch() */}
-              <h3 className={classes.cardTitle}>75</h3>
+              <h3 className={classes.cardTitle}>{data==undefined ? 0:data[1].count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -108,7 +103,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Rejected requests</p>
                 {/* fetch() */}
-              <h3 className={classes.cardTitle}>245</h3>
+              <h3 className={classes.cardTitle}>{data==undefined ? 0:data[2].count}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -120,33 +115,7 @@ export default function Dashboard() {
         </GridItem>
       </GridContainer>
       
-      <GridContainer>
-       
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Student Requests</h4>
-              <p className={classes.cardCategoryWhite}>
-                Requests as of {date}
-              </p>
-            </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="warning"
-                tableHead={["Request ID", "Student ID", "Lecturer ID", "Equpiment ID","Reason"]}
-                // fetch()
-                tableData={[
-                  ["1", "Dakota Rice", "abc@gmail.com", "Niger","reason"],
-                  ["2", "Minerva Hooper", "abc@gmail.com", "Curaçao","reason"],
-                  ["3", "Sage Rodriguez", "abc@gmail.com", "Netherlands","reason"],
-                  ["4", "Philip Chaney", "abc@gmail.com", "Korea, South","reason"],
-                ]}
-              />
-            </CardBody>
-          </Card>
-        </GridItem>
-       
-      </GridContainer>
+    
     </div>
   );
 }

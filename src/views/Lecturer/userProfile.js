@@ -121,29 +121,12 @@ export default function UserProfile() {
             </GridContainer>
            
           </CardBody>
-          <CardFooter>
+          {/* <CardFooter>
             <Button color="primary">Update Profile</Button>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={4}>
-        <Card profile>
-          <CardAvatar profile>
-            <a href="#pablo" onClick={(e) => e.preventDefault()}>
-              <img src={avatar} alt="..." />
-            </a>
-          </CardAvatar>
-          <CardBody profile>
-            <h4 className={classes.cardTitle}>Alec Thompson</h4>
-            <p className={classes.description}>
-              Don{"'"}t be scared of the truth because we need to restart the
-              human foundation in truth And I love you like Kanye loves Kanye
-              I love Rick Owens’ bed design but the back is...
-            </p>
-           
-          </CardBody>
-        </Card>
-      </GridItem>
+      
     </GridContainer>
   </div>
   );
