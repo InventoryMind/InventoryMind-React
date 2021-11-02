@@ -10,31 +10,72 @@ import { WindowSharp } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-
+import { Redirect } from 'react-router-dom';
 
 
 export default function Login() {
   
 
   const classes = useStyles();
-  const [userType, setUserType] = React.useState('');
-  const { token, setToken } = useToken();
-  const [username, setUserName] = useState();
   const [ottp, setOttp] = useState();
+  const [newPass,setNewPass]=useState();
+  const [confirmPass,setConfirmPass]=useState();
+  const [success,setSuccess]=useState();
 
   const handleSubmit = async e => {
     e.preventDefault();
+    if (!newPass || !ottp){
+      alert ("Enter a password or verification code!!!")
+    }
+    else if(newPass.length<7){
+      alert("Passsword Length muste be greater than 8!!!")
+    }
+    else if(ottp.length!=6){
+      alert ("Verification code must be 6 digit!!!")
+    }
+    else if (newPass==confirmPass){
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body:JSON.stringify({newPassword:newPass,verificationCode:ottp})
+      };
+      fetch(process.env.REACT_APP_API+'/auth/resetPassword',requestOptions)
+        .then(response =>response.json())
+       .then(data=>{
+         alert(data.message)
+          if (data.status=="200"){
+            setSuccess(true);
+          }
+       })
+       .catch(e=>console.log(e));
+    }
+    else{
+      alert("Password does not match!!!")
+    }
+   
+  }
+  
+  const handleResend = async e => {
+    e.preventDefault();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+    };
+    fetch(process.env.REACT_APP_API+'/auth/resendResetCode',requestOptions)
+      .then(response =>response.json())
+     .then(data=>{
+       console.log(data)
+        alert(data.message)
+     })
+     .catch(e=>console.log(e));
    
   }   
     
 
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-    console.log(userType)
-  };
-
-  const handleEdit=()=>{
-    
+  if (success){
+    return <Redirect to="/" /> 
   }
 
   return (
@@ -51,7 +92,7 @@ export default function Login() {
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
            
-            <TextField
+            {/* <TextField
               type="text"
               variant="outlined"
               margin="normal"
@@ -64,8 +105,42 @@ export default function Login() {
               autoFocus
               required onChange={e => setUserName(e.target.value)}
               // values={values.email}
-            />
+            /> */}
             {/* {errors.email? errors.email:null} */}
+            <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="newPass"
+              label="New Password"
+              name="newPass"
+              autoComplete="New Password"
+              autoFocus
+              required onChange={e => setNewPass(e.target.value)}
+              inputProps={{ maxLength: 30 }}
+              
+              // values={values.email}
+            />
+
+            <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="confirmPass"
+              label="Confirm Password"
+              name="confirmPass"
+              autoComplete="Confirm Password"
+              autoFocus
+              required onChange={e => setConfirmPass(e.target.value)}
+              inputProps={{ maxLength: 30 }}
+              
+              // values={values.email}
+            />
+
             <TextField
               type="text"
               variant="outlined"
@@ -82,10 +157,20 @@ export default function Login() {
               
               // values={values.email}
             />
-
             <Stack sx={{ width: '100%' }} spacing={2}>
-                <Alert severity="info">No of characters must be 6</Alert>
-                </Stack>
+            
+            <Alert severity="info">No of characters must be 6</Alert>
+            </Stack>
+            <Button
+              onClick={handleResend}
+              width="50%"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Resend
+            </Button>
+            
 
           
             <Button
@@ -96,7 +181,7 @@ export default function Login() {
               color="secondary"
               className={classes.submit}
             >
-              Verify
+              Reset Password
             </Button>
            
             <Link to="/" className="btn btn-primary" >

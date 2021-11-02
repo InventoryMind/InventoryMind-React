@@ -8,8 +8,7 @@ import useToken from "../../useToken";
 import loginImage from "../../assets/img/loginImg.jpg";
 import { WindowSharp } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-
-
+import {Redirect} from 'react-router-dom';
 
 
 
@@ -25,30 +24,43 @@ async function loginUser(credentials) {
  }
 
 
-
 export default function Login() {
  
 
   const classes = useStyles();
  
   
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
+  const [userType, setUserType] = useState();
+const [sent,setSent]=useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body:JSON.stringify({email:email,userType:userType})
+    };
+    fetch(process.env.REACT_APP_API+'/auth/forgotPassword',requestOptions)
+      .then(response =>response.json())
+     .then(data=>{
+       console.log(data)
+        if (data.status=="200"){
+          console.log("Email sent")
+          setSent(true)
+        }
+        else alert(data.message)
+     })
+     .catch(e=>console.log(e));
    
   }   
-    
-
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-    console.log(userType)
-  };
-
-  const handleEdit=()=>{
-    
+ 
+  if (sent){
+    return <Redirect from="/forgotPassword" to="/ottp" />
   }
+  
+ 
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -63,7 +75,26 @@ export default function Login() {
             Forgot Password
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
-           
+
+          <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-outlined-label">User Type</InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={userType}
+                onChange={e=>setUserType(e.target.value)}
+                label="UserType"
+                margin="normal"
+                required fullWidth
+              >
+                <MenuItem value={"administrator"}>Admin</MenuItem>
+                <MenuItem value={"lecturer"}>Lecturer</MenuItem>
+                <MenuItem value={"technical_officer"}>Technical Officer</MenuItem>
+                {/* newly added */}
+                <MenuItem value={"student"}>Student</MenuItem>
+              </Select>
+            </FormControl>
+            
             <TextField
               type="text"
               variant="outlined"
@@ -75,14 +106,13 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
-              required onChange={e => setUserName(e.target.value)}
+              required onChange={e => setEmail(e.target.value)}
               // values={values.email}
             />
             {/* {errors.email? errors.email:null} */}
-
            
 
-            <Link to="/ottp" className="btn btn-primary">
+            
             <Button
               onSubmit={handleSubmit}
               type="submit"
@@ -91,9 +121,9 @@ export default function Login() {
               color="secondary"
               className={classes.submit}
             >
-              Reset Password
+              Forgot Password
             </Button>
-            </Link>
+            
             <Link to="/" className="btn btn-primary" >
             <Button
             //   onSubmit={handleSubmit}
@@ -117,4 +147,5 @@ export default function Login() {
     </Grid>
   );
 }
+
 

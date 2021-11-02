@@ -77,8 +77,8 @@ export default function Login() {
       password,
       userType
     }).catch(e=>console.log(e));
-
-    if (res.status!=200){
+    if(!res) alert ("Try again later")
+    else if (res.status!=200){
       console.log(res.status)
       alert(res.message)
     }
