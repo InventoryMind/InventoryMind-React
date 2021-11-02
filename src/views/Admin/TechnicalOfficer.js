@@ -123,7 +123,7 @@ if (data){
     firstName:data[i].first_name,
     lastName:data[i].last_name,
     Email:data[i].email,
-    LabName:data[i].name,
+    LabName:data[i].lab_name,
     ContactNo:data[i].contact_no
     }
   }
