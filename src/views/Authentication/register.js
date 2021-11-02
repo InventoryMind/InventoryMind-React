@@ -7,15 +7,54 @@ import PropTypes from 'prop-types';
 import useToken from "../../useToken";
 import loginImage from "../../assets/img/loginImg.jpg";
 import { WindowSharp } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 
 export default function Login() {
   
 
   const classes = useStyles();
-  const [userType, setUserType] = React.useState('');
 
+  async function registerHandler(){
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email:email,firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo,password:password})
+    };
+    // console.log(requestOptions);
+    if(userId && firstName && lastName && email && contactNo && password && confirmPassword){
+      if(password==confirmPassword){
+        await fetch(process.env.REACT_APP_API+'/student/register',requestOptions)
+       .then(response => response.json())
+      .then(data=>{
+          alert(data.msg);
+          if (data.msg == "Success"){
+            setResponse(true);
+          }
+      }).catch(e=>alert("ERROR!!! Failed"));
+    }
+    else{
+      alert("Password doesnot match")
+    }
+    }
+    else{
+      alert("Fill all the fields")
+    }
+  
+  }
+  // console.log(response);
+  const [response,setResponse]=useState();
+  const [userId,setUserId]=useState();
+  const [firstName,setFirstName]=useState();
+  const [lastName,setLastName]=useState();
+  const [email,setEmail]=useState();
+  const [contactNo,setContactNo]=useState();
+  const [password,setPassword]=useState();
+  const [confirmPassword,setConfirmPassword]=useState();
 
+  if(response){
+    return <Redirect to="/" />
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -40,6 +79,7 @@ export default function Login() {
               name="IndexNumber"
               autoComplete="Indexnumber"
               autoFocus
+              onChange={(e)=>setUserId(e.target.value)}
               required 
               // values={values.email}
             />
@@ -53,6 +93,7 @@ export default function Login() {
               label="First Name"
               name="fname"
               autoComplete="fname"
+              onChange={(e)=>setFirstName(e.target.value)}
               autoFocus
               required 
               // values={values.email}
@@ -67,6 +108,7 @@ export default function Login() {
               label="Last Name"
               name="lname"
               autoComplete="lname"
+              onChange={(e)=>setLastName(e.target.value)}
               autoFocus
               required 
               // values={values.email}
@@ -83,52 +125,12 @@ export default function Login() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={(e)=>setEmail(e.target.value)}
               autoFocus
               required 
               // values={values.email}
             />
-             <TextField
-              type="text"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="nic"
-              label="NIC Number"
-              name="NIC"
-              autoComplete="NIC"
-              autoFocus
-              required 
-              // values={values.email}
-            />
-             <TextField
-              type="text"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="fname"
-              label="First Name"
-              name="fname"
-              autoComplete="fname"
-              autoFocus
-              required 
-              // values={values.email}
-            />
-             <TextField
-              type="text"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="city"
-              label="City"
-              name="city"
-              autoComplete="city"
-              autoFocus
-              required 
-              // values={values.email}
-            />
+          
              <TextField
               type="text"
               variant="outlined"
@@ -139,6 +141,7 @@ export default function Login() {
               label="Contact No"
               name="phnNo"
               autoComplete="phnNo"
+              onChange={(e)=>setContactNo(e.target.value)}
               autoFocus
               required 
               // values={values.email}
@@ -155,7 +158,8 @@ export default function Login() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              autoComplete="New-password"
+              onChange={(e)=>setPassword(e.target.value)}
               required 
               // values={values.password}
             />
@@ -170,6 +174,7 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setConfirmPassword(e.target.value)}
               required 
               // values={values.password}
             />
@@ -177,8 +182,7 @@ export default function Login() {
 
 
             <Button
-            //   onSubmit={handleSubmit}
-              type="submit"
+              onClick={registerHandler}
               fullWidth
               variant="contained"
               color="primary"
