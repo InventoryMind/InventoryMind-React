@@ -244,7 +244,7 @@ export default function TableList() {
 							</LocalizationProvider> */}
 
 							<div>
-              <div style={{ height: 250, width: "100%" }}>
+              <div style={{ height: 850, width: "100%" }}>
 												<DataGrid rows={rows} columns={columns} />
 								</div>
 							</div>
