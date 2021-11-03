@@ -103,6 +103,8 @@ export default function TableList() {
   const [eqData,setEqData]=useState();
   var eqrows=[]
 	const handleOpen = (ID,type) => {
+		if(type=="Temporary Borrowed")type="temporary"
+		else type="normal"
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -112,6 +114,7 @@ export default function TableList() {
     fetch(process.env.REACT_APP_API+'/student/viewBorrow',requestOptions)
     .then(response =>{if (response.status==200){return new Promise((resolve)=>resolve(response.json()))}})
    .then(data=>{
+	   console.log(data)
 	if(data)setEqData(data.msg);
 	else {alert("No Data to show");
 	setOpen(false);
@@ -137,14 +140,13 @@ export default function TableList() {
     })
     .catch(e=>console.log(e));
   },[]);
-  // console.log(Object.values(eqData? eqData.types:{a:"Sf"}));
-
+console.log(history)
   if(history){
     for (let i=0;i < history.length;i++) {
       let element=history[i]
       rows.push({
         id: i+1,
-        ID:i+1,
+        ID:element.borrowId,
         type:element.type,
         DateOfBorrowing:element.dateOfBorrowing
       })
@@ -214,7 +216,7 @@ export default function TableList() {
 				<GridItem xs={12} sm={12} md={12}>
 					<Card>
 						<CardHeader color="primary">
-							<h4 className={classes.cardTitleWhite}>Approved Requests</h4>
+							<h4 className={classes.cardTitleWhite}>Borrow History</h4>
 						</CardHeader>
 						<CardBody>
 							{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
