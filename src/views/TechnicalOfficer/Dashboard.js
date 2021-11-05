@@ -137,33 +137,7 @@ export default function Dashboard() {
         </GridItem>
       </GridContainer>
       
-      <GridContainer>
-        
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Product Stats</h4>
-              <p className={classes.cardCategoryWhite}>
-                product details as of {date}
-              </p>
-            </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="warning"
-                tableHead={["Equipment ID", "Name", "No of Count", "Brand"]}
-                // fetch()
-                tableData={[
-                  ["1", "Dakota Rice", "abc@gmail.com", "Niger"],
-                  ["2", "Minerva Hooper", "abc@gmail.com", "Curaçao"],
-                  ["3", "Sage Rodriguez", "abc@gmail.com", "Netherlands"],
-                  ["4", "Philip Chaney", "abc@gmail.com", "Korea, South"],
-                ]}
-              />
-            </CardBody>
-          </Card>
-        </GridItem>
-        
-      </GridContainer>
+      
     </div>
   );
 }
