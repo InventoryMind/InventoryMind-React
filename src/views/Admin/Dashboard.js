@@ -30,12 +30,12 @@ export default function Dashboard() {
   const classes = useStyles();
   const [data,setData]=useState();
   useEffect(()=>{
-    fetch(process.env.REACT_APP_API+'/admin/getDashboardData',{credentials:'include',headers:{cookie:"auth-token:"+JSON.parse(localStorage.token).token}})
+    fetch(process.env.REACT_APP_API+'/admin/getDashboardData',{credentials:'include'})
      .then(response => response.json())
     .then(data=>setData(data.msg))
     .catch(e=>console.log(e));
   },[])
-  console.log(data);
+  console.log("auth-token:"+JSON.parse(localStorage.token).token);
   return (
     <div>
       <GridContainer>
