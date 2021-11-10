@@ -26,6 +26,7 @@ async function loginUser(email,password,userType) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credintials:"include",
     body: JSON.stringify({ email:email.username, password:email.password,userType:email.userType })
   };
   // console.log(requestOptions);
