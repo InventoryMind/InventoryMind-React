@@ -3,8 +3,8 @@ const dotenv=require('dotenv')
 const cors = require('cors');
 const app = express();
 dotenv.config();
-app.use(cors());
-//app.use(cors({origin:env.api,credentials : true}));
+//app.use(cors());
+app.use(cors({origin:env.api,credentials : true}));
 // app.use(function(req, res, next) {
 //   req.header("Access-Control-Allow-Origin", "*");
 //   req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
