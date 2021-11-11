@@ -283,7 +283,7 @@ const reject=(id,reqId)=>{
 				<GridItem xs={12} sm={12} md={12}>
 					<Card>
 						<CardHeader color="primary">
-							<h4 className={classes.cardTitleWhite}>Request History</h4>
+							<h4 className={classes.cardTitleWhite}>Pending Request</h4>
 						</CardHeader>
 						<CardBody>
 							{/* <LocalizationProvider dateAdapter={AdapterDateFns}>
