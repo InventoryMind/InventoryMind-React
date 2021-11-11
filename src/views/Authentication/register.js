@@ -22,8 +22,7 @@ export default function Login() {
       body: JSON.stringify({ email:email,firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo,password:password})
     };
     // console.log(requestOptions);
-    if(userId && firstName && lastName && email && contactNo && password && confirmPassword){
-      if(password==confirmPassword){
+    if(userId && firstName && lastName && email && contactNo){
         await fetch(process.env.REACT_APP_API+'/student/register',requestOptions)
        .then(response => response.json())
       .then(data=>{
@@ -31,11 +30,7 @@ export default function Login() {
           if (data.msg == "Success"){
             setResponse(true);
           }
-      }).catch(e=>alert("ERROR!!! Failed"));
-    }
-    else{
-      alert("Password doesnot match")
-    }
+      }).catch(e=>alert("ERROR!!! Failed"));    
     }
     else{
       alert("Fill all the fields")
