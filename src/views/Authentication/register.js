@@ -19,7 +19,7 @@ export default function Login() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ email:email,firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo,password:password})
+      body: JSON.stringify({ email:email,firstName:firstName,lastName:lastName,userId:userId,contactNo:contactNo})
     };
     // console.log(requestOptions);
     if(userId && firstName && lastName && email && contactNo){
@@ -44,8 +44,6 @@ export default function Login() {
   const [lastName,setLastName]=useState();
   const [email,setEmail]=useState();
   const [contactNo,setContactNo]=useState();
-  const [password,setPassword]=useState();
-  const [confirmPassword,setConfirmPassword]=useState();
 
   if(response){
     return <Redirect to="/" />
@@ -140,41 +138,8 @@ export default function Login() {
               autoFocus
               required 
               // values={values.email}
-            />
-            {/* {errors.email? errors.email:null} */}
-
-            <TextField
-              type="password"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="New-password"
-              onChange={(e)=>setPassword(e.target.value)}
-              required 
-              // values={values.password}
-            />
-            <TextField
-              type="password"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Confirm Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(e)=>setConfirmPassword(e.target.value)}
-              required 
-              // values={values.password}
-            />
-             {/* {errors.password? errors.password:null} */}
-
+            />        
+          
 
             <Button
               onClick={registerHandler}
