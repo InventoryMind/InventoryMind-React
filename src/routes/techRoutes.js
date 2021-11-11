@@ -16,9 +16,11 @@ import InventoryItems from "views/TechnicalOfficer/InventoryItems";
 import GeneratedReports from "views/TechnicalOfficer/GeneratedReports";
 import NotificationsPage from "views/TechnicalOfficer/Notifications";
 import AddEquipment from "views/TechnicalOfficer/AddEquipment";
-import {DriveFileMove, Inventory,Report,Add} from '@mui/icons-material';
+import {DriveFileMove, Inventory,Report,Add,Password} from '@mui/icons-material';
 import { KeyboardReturn, ShopTwo,ReportProblem,CropFree} from "@material-ui/icons";
 import GenerateBarcode from "views/TechnicalOfficer/GenerateBarcode"
+import changePass from "views/TechnicalOfficer/ChangePass";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 const dashboardRoutes = [
  
@@ -58,13 +60,6 @@ const dashboardRoutes = [
     component: InventoryItems,
     layout: "/tech",
   },
-  // {
-  //   path: "/addReport",
-  //   name: "Add Report",
-  //   icon: Report,
-  //   component: AddReport,
-  //   layout: "/tech",
-  // },
   {
     path: "/borrowItems",
     name: "Borrowed Items",
@@ -75,19 +70,17 @@ const dashboardRoutes = [
   {
     path: "/generatedReports",
     name: "Generated Reports",
-    icon: ReportProblem,
+    icon: AssessmentIcon,
     component: GeneratedReports,
     layout: "/tech",
   },
-  // {
-  //   path: "/notifications",
-  //   name: "Notifications",
-  //   icon: Notifications,
-  //   component: NotificationsPage,
-  //   layout: "/tech",
-  // },
-  
-  
+  {
+    path: "/changePass",
+    name: "Change Password",
+    icon: Password,
+    component: changePass,
+    layout: "/tech",
+  }  
  
 ];
 

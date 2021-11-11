@@ -26,15 +26,16 @@ import Student from "views/Admin/Student";
 import TechnicalOfficer from "views/Admin/TechnicalOfficer";
 import NotificationsPage from "views/Admin/Notifications";
 import AddType from "views/Admin/AddEquipmentType";
-
+import changePass from "views/Admin/ChangePass";
 // import Student from "views/Student/Student.js";
 // import TechnicalOfficer from "views/TechnicalOfficer/TechnicalOfficer.js";
 // import NotificationsPage from "views/Notifications/Notifications.js";
 import {Lock,Domain,GroupAdd,AccountCircle,ReportProblem} from '@material-ui/icons';
-import {Add} from '@mui/icons-material';
+import {Add, Password} from '@mui/icons-material';
 //import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 //import RTLPage from "views/RTLPage/RTLPage.js";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 const dashboardRoutes = [
   {
@@ -96,7 +97,6 @@ const dashboardRoutes = [
   {
     path: "/addEquipmentType",
     name: "Add EquipmentType",
-    // rtlName: "قائمة الجدول",
     icon: Add,
     component: AddType,
     layout: "/admin",
@@ -105,37 +105,18 @@ const dashboardRoutes = [
   {
     path: "/generatedReport",
     name: "Report Summary",
-    icon: ReportProblem,
+    icon: AssessmentIcon,
     component: GeneratedReports,
     layout: "/admin",
   },
-  // {
-  //   path: "/notifications",
-  //   name: "Notifications",
-  //   // rtlName: "قائمة الجدول",
-  //   icon: Notifications,
-  //   component: NotificationsPage,
-  //   layout: "/admin",
-  // },
-  
- 
-  
-  // {
-  //   path: "/rtl-page",
-  //   name: "RTL Support",
-  //   rtlName: "پشتیبانی از راست به چپ",
-  //   icon: Language,
-  //   component: RTLPage,
-  //   layout: "/rtl",
-  // },
-  // {
-  //   path: "/upgrade-to-pro",
-  //   name: "Upgrade To PRO",
-  //   rtlName: "التطور للاحترافية",
-  //   icon: Unarchive,
-  //   component: UpgradeToPro,
-  //   layout: "/admin",
-  // },
+
+  {
+    path: "/changePass",
+    name: "Change Password",
+    icon: Password,
+    component: changePass,
+    layout: "/admin",
+  }
 ];
 
 export default dashboardRoutes;

@@ -15,8 +15,8 @@ import NotificationsPage from "views/Lecturer/Notifications";
 import ApprovedRequests from "views/Lecturer/ApprovedRequests";
 import RejectedRequests from "views/Lecturer/RejectedRequests"
 import { AccountCircle} from "@material-ui/icons";
-import {RequestPage} from '@mui/icons-material';
-
+import {RequestPage,Password} from '@mui/icons-material';
+import changePass from "views/Lecturer/ChangePass";
 
 const dashboardRoutes = [
   
@@ -29,21 +29,13 @@ const dashboardRoutes = [
     layout: "/lecturer",
   },
   {
-    path: "/lecturerProfile",
+    path: "/Profile",
     name: "Profile",
     rtlName: "ملف تعريفي للمستخدم",
     icon: AccountCircle,
     component: UserProfile,
     layout: "/lecturer",
   },
-  // {
-  //   path: "/table",
-  //   name: "Table List",
-  //   rtlName: "قائمة الجدول",
-  //   icon: "content_paste",
-  //   component: TableList,
-  //   layout: "/lecturer",
-  // },
   {
     path: "/pendingRequests",
     name: "PendingRequests",
@@ -60,47 +52,13 @@ const dashboardRoutes = [
     component: ApprovedRequests,
     layout: "/lecturer",
   },
-  // {
-  //   path: "/rejectedRequests",
-  //   name: "RejectedRequests",
-  //   rtlName: "طباعة",
-  //   icon: RequestPage,
-  //   component: RejectedRequests,
-  //   layout: "/lecturer",
-  // },
-  // {
-  //   path: "/notifications",
-  //   name: "Notifications",  
-  //   rtlName: "الرموز",
-  //   icon: Notifications,
-  //   component: NotificationsPage,
-  //   layout: "/lecturer",
-  // },
-  // {
-  //   path: "/student",
-  //   name: "Student",
-  //   rtlName: "خرائط",
-  //   icon: LocationOn,
-  //   component: Student,
-  //   layout: "/lecturer",
-  // },
- 
-  // {
-  //   path: "/rtl-page",
-  //   name: "RTL Support",
-  //   rtlName: "پشتیبانی از راست به چپ",
-  //   icon: Language,
-  //   component: RTLPage,
-  //   layout: "/rtl",
-  // },
-  // {
-  //   path: "/upgrade-to-pro",
-  //   name: "Upgrade To PRO",
-  //   rtlName: "التطور للاحترافية",
-  //   icon: Unarchive,
-  //   component: UpgradeToPro,
-  //   layout: "/admin",
-  // },
+  {
+    path: "/changePass",
+    name: "Change Password",
+    icon: Password,
+    component: changePass,
+    layout: "/lecturer",
+  }
 ];
 
 export default dashboardRoutes;

@@ -95,8 +95,8 @@ export default function AdminNavbarLinks() {
           onClick={handleClickNotification}
           className={classes.buttonLink}
         >
-          <Notifications className={classes.icons} />
-          <span className={classes.notifications}>2</span>
+          {/* <Notifications className={classes.icons} />
+          <span className={classes.notifications}>2</span> */}
           <Hidden mdUp implementation="css">
             <p onClick={handleCloseNotification} className={classes.linkText}>
               Notification
@@ -127,7 +127,7 @@ export default function AdminNavbarLinks() {
                 <ClickAwayListener onClickAway={handleCloseNotification}>
                   <MenuList role="menu">
                   {/* fetch() */}
-                    <MenuItem
+                    {/* <MenuItem
                       onClick={handleCloseNotification}
                       className={classes.dropdownItem}
                     >
@@ -139,7 +139,7 @@ export default function AdminNavbarLinks() {
                       className={classes.dropdownItem}
                     >
                       new tasks
-                    </MenuItem>
+                    </MenuItem> */}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
